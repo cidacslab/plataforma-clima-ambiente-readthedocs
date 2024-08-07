@@ -3,8 +3,6 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-#name = "lumache"
 name = "CIDACS Clima - Documentação dos Dados"
-#authors = [{name = "Graziella", email = "graziella@lumache"}]
-authors = [{name = "Juliane", email = "julianlanzin@gmail.com"}]
+authors = [{name = "Cidacs Fiocruz", email = "cidacs@fiocruz.br"}]
 dynamic = ["version", "description"]
