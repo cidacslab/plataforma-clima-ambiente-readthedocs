@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 #name = "lumache"
-name = "AESOP - Data descriptor"
+name = "CIDACS Clima - Documentação dos Dados"
 #authors = [{name = "Graziella", email = "graziella@lumache"}]
 authors = [{name = "Juliane", email = "julianlanzin@gmail.com"}]
 dynamic = ["version", "description"]
