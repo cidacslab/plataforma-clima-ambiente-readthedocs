@@ -1,19 +1,23 @@
 ANA preciptation dataset
 ===========
+
 Updated: 2024-08-14
 
+
 ANA gauges stations
---------------------------------
+----------------------
+
+
 
 Description
-^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 This documentation was created to describe the process of acquiring daily accumulated rainfall data recorded by rain gauges registered with the National Water Agency (ANA) in Brazil. The information was downloaded from the `ANA Telemetry portal <https://telemetriaws1.ana.gov.br/ServiceANA.asmx>`_ . However, in order to be able to download the data of interest, it was necessary to develop algorithms combining the Web scraping computational technique to read and extract the information obtained, by station, via HTTP GET requests.
 
 However, in order to start the download process, it is necessary to have the code of the station of interest, so prior to downloading the rainfall data, a survey was carried out of all the stations with rain gauges registered on the ANA system.
 
 List of stations registered by the ANA
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ANA has two types of stations with rain gauges registered in its system. The telemetric (automatic) stations are responsible for collecting and assisting in monitoring hydrometeorological measurements remotely, with real-time data or indicators. The so-called conventional stations have rain gauges that require conventional collection of hydrometeorological data, i.e., daily records made by observers and measurements taken in the field by hydrology technicians and hydrologist engineers. ANA's telemetry portal provides information about these two types of stations through the electronic addresses https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario and https://telemetriaws1.ana.gov.br/EstacoesTelemetricas.aspx, used to access descriptions of conventional and telemetric stations, respectively.
 
@@ -80,7 +84,7 @@ This algorithm is responsible for making requests by state to list the stations 
 
 
 Removing duplicates
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 After obtaining the codes of all the stations (conventional or telemetric) registered on the ANA system, a check was made for multiple records per station, which could occur due to registration problems. After removing duplicates, according to station code, 4520 unique records remained in the list of telemetry stations. The same check was carried out for the list of conventional stations, resulting in 19529 unique stations. The investigation of duplicate records is presented in detail in the script ``Lista_estacoes_ANA_prec.ipynb`` available in the Github repository.
 
@@ -143,18 +147,26 @@ The HidroWeb system also informs about the possibility of API access. However, u
 
 
 
+
+
 ANA gauges dataset
 --------------------------------
 
 
 Description
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
+
+lipsum
 
 Data access information
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
+lipsum
+
 Methods of data collection
 ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+lipsum
 
 Data-specific information
 ^^^^^^^^^^^^^^^^^^^^^^^^^
