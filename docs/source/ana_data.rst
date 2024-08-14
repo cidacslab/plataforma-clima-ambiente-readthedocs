@@ -2,6 +2,8 @@ ANA preciptation dataset
 ===========
 Updated: 2024-08-14
 
+ANA gauges stations
+--------------------------------
 
 Description
 ^^^^^^^^^^^
@@ -10,15 +12,12 @@ This documentation was created to describe the process of acquiring daily accumu
 
 However, in order to start the download process, it is necessary to have the code of the station of interest, so prior to downloading the rainfall data, a survey was carried out of all the stations with rain gauges registered on the ANA system.
 
-ANA gauges stations
---------------------------------
-
 List of stations registered by the ANA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ANA has two types of stations with rain gauges registered in its system. The telemetric (automatic) stations are responsible for collecting and assisting in monitoring hydrometeorological measurements remotely, with real-time data or indicators. The so-called conventional stations have rain gauges that require conventional collection of hydrometeorological data, i.e., daily records made by observers and measurements taken in the field by hydrology technicians and hydrologist engineers. ANA's telemetry portal provides information about these two types of stations through the electronic addresses `<https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>` and `<https://telemetriaws1.ana.gov.br/EstacoesTelemetricas.aspx>`, used to access descriptions of conventional and telemetric stations, respectively.
+ANA has two types of stations with rain gauges registered in its system. The telemetric (automatic) stations are responsible for collecting and assisting in monitoring hydrometeorological measurements remotely, with real-time data or indicators. The so-called conventional stations have rain gauges that require conventional collection of hydrometeorological data, i.e., daily records made by observers and measurements taken in the field by hydrology technicians and hydrologist engineers. ANA's telemetry portal provides information about these two types of stations through the electronic addresses https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario and https://telemetriaws1.ana.gov.br/EstacoesTelemetricas.aspx, used to access descriptions of conventional and telemetric stations, respectively.
 
-The list of telemetric stations is made available by ANA in spreadsheet format (.xls) and contains information such as: Station Name (NomeEstacao), Station Code (CodEstacao), Codes associated with the river basins and sub-basins to which the station is related (Bacia, SubBacia), names for the station operator and person in charge, as well as geolocation information such as latitude, longitude, and altitude. This list is available in the file `EstacoesTelemetricas_Todas_12_08_2024.xls`, and is structured according to the following table.
+The list of telemetric stations is made available by ANA in spreadsheet format (.xls) and contains information such as: Station Name (``NomeEstacao``), Station Code (``CodEstacao``), Codes associated with the river basins and sub-basins to which the station is related (``Bacia``, ``SubBacia``), names for the station operator and person in charge, as well as geolocation information such as latitude, longitude, and altitude. This list is available in the file ``EstacoesTelemetricas_Todas_12_08_2024.xls``, and is structured according to the following table.
 
 
 +------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
@@ -48,7 +47,9 @@ The list of telemetric stations is made available by ANA in spreadsheet format (
 +------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
 
 
-For the conventional stations, available via `HidroInventario <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, it is necessary to extract the descriptive information via HTTP GET requests, as this type of station does not have a spreadsheet list available from the ANA. As the codes for these stations are not available a priori, the requests were made by Brazilian state, with each query returning all the conventional stations registered in a given federative unit. To carry out this task, a Web Scraping algorithm was developed in the R language, called ``funcao_get_list_ANA_Hidro.R``. This algorithm is responsible for making requests by state to list the stations available in HidroInventario via the `<https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>` link and merging the stations from all the states into a spreadsheet containing information such as the station code, latitude, longitude, altitude, municipality and state. This information was saved in a spreadsheet in CSV format called ``HidroInventario_stations_ANA.csv``, with a structure like the one below.
+For the conventional stations, available via `HidroInventario <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, it is necessary to extract the descriptive information via HTTP GET requests, as this type of station does not have a spreadsheet list available from the ANA. As the codes for these stations are not available a priori, the requests were made by Brazilian state, with each query returning all the conventional stations registered in a given federative unit. To carry out this task, a Web Scraping algorithm was developed in the R language, called ``funcao_get_list_ANA_Hidro.R``.
+
+This algorithm is responsible for making requests by state to list the stations available in HidroInventario via the https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario link and merging the stations from all the states into a spreadsheet containing information such as the station code, latitude, longitude, altitude, municipality and state. This information was saved in a spreadsheet in CSV format called ``HidroInventario_stations_ANA.csv``, with a structure like the one below.
 
 +-------+--------------------------------------+---------+------------------+----------+-----------+----------+-------------+-------------+----------------+------------------------+
 |       | Nome                                 | Codigo  | ResponsavelSigla | Latitude | Longitude | Altitude | TipoEstacao | BaciaCodigo | SubBaciaCodigo | TipoEstacaoTelemetrica |
@@ -91,11 +92,9 @@ The ANA's list of conventional stations contains 19529 stations, while the telem
 
 An investigation revealed 4263 telemetric stations present only in the Telemetric Stations list, 257 stations registered as telemetric and also conventional (HidroInventario) according to both ANA station lists, and finally, 19272 stations are registered only as conventional (HidroInventario).
 
-.. |ANA gauges diagram | image:: images/venn_gauges_ana.png
+.. image:: images/venn_gauges_ana.png
   :width: 400
   :alt: Alternative text
-
-|ANA gauges diagram |
 
 
 At the end of this process, information on 23792 stations was organized using the Telemetric and Conventional station lists as sources, as well as the stations that are present in both lists. This structure is shown in the table below.
@@ -139,8 +138,8 @@ Daily precipitation data for stations registered with the ANA can also be obtain
 
 The HidroWeb system also informs about the possibility of API access. However, users who wish to access HidroWeb data and information in an automated way, using API, must send an email with a request for the data, which will be submitted for evaluation.
 
-- https://www.snirh.gov.br/hidroweb/serieshistoricas
-- https://www.snirh.gov.br/hidroweb/acesso-api
+- Download precipitation data: https://www.snirh.gov.br/hidroweb/serieshistoricas
+- Request API access: https://www.snirh.gov.br/hidroweb/acesso-api
 
 
 
