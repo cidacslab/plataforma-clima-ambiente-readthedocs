@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'AESOP - Data descriptor'
-copyright = '2022, Juliane F Oliveira'
-author = 'Juliane'
+project = 'CIDACS Clima - Data descriptor'
+copyright = '2022, Marcos Eustorgio Filho'
+author = 'Marcos'
 
 release = '0.1'
 version = '0.1.0'
@@ -36,7 +36,7 @@ templates_path = ['_templates']
 
 html_theme = 'sphinx_rtd_theme'
 
-html_logo = 'aesop_logo.png'
+html_logo = 'cidacs_clima_logo.png'
 
 htmlhelp_basename = 'TableswithSphinxdoc'
 
