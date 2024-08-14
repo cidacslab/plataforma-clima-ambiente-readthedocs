@@ -1,1 +1,0 @@
-DATALAKE = 'datalake'

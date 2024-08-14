@@ -1,4 +1,4 @@
-Plataforma de Clima e Ambiente do Cidacs
+Cidacs Climate and Environment Platform
 =======================================
 
 We are using the Read the Docs template to produce our data documentation. For instructions on how to work with Read the Docs see bellow.
