@@ -148,20 +148,31 @@ Descriptive information about listed gauges stations
  This section presents descriptive information on the single list of rain gauges registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
 
 
-|     Responsible agency    |     Frequency   (%)    |
-|---------------------------|------------------------|
-|     1. ANA                |     5113 (21.5%)       |
-|     2. CEMADEN            |     2533 (10.6%)       |
-|     3. DAEE-SP            |     1910 (8.0%)        |
-|     4. SUDENE             |     1352 (5.7%)        |
-|     5. IAT-PR             |     878  (3.7%)        |
-|     6. INMET              |     827  (3.5%)        |
-|     7. FUNCEME-CE         |     791  (3.3%)        |
-|     8. DNOCS              |     640  (2.7%)        |
-|     9. AESA-PB            |     319  (1.3%)        |
-|     10. SEMA-RS           |     310  (1.3%)        |
-|     [ 745 others   ]      |     9119 (38.3%)       |
-
++--------------------+-----------------+
+| Responsible agency | Frequency   (%) |
++--------------------+-----------------+
+| 1. ANA             | 5113 (21.5%)    |
++--------------------+-----------------+
+| 2. CEMADEN         | 2533 (10.6%)    |
++--------------------+-----------------+
+| 3. DAEE-SP         | 1910 (8.0%)     |
++--------------------+-----------------+
+| 4. SUDENE          | 1352 (5.7%)     |
++--------------------+-----------------+
+| 5. IAT-PR          | 878  (3.7%)     |
++--------------------+-----------------+
+| 6. INMET           | 827  (3.5%)     |
++--------------------+-----------------+
+| 7. FUNCEME-CE      | 791  (3.3%)     |
++--------------------+-----------------+
+| 8. DNOCS           | 640  (2.7%)     |
++--------------------+-----------------+
+| 9. AESA-PB         | 319  (1.3%)     |
++--------------------+-----------------+
+| 10. SEMA-RS        | 310  (1.3%)     |
++--------------------+-----------------+
+| (745 others)       | 9119 (38.3%)    |
++--------------------+-----------------+
 
 
 Of the 23,792 stations registered, 21.5% are under the responsibility of the ANA, while 10.6% are under the responsibility of CEMADEN (Disaster Monitoring Centre). INMET (the National Meteorological Institute) has 3.5 per cent of the stations registered in the ANA system. In addition to the 10 government agencies with the highest frequency of registered stations (61.7 per cent), there are another 745 (38.3 per cent) agencies with stations registered in the ANA system.
@@ -174,7 +185,8 @@ The following figure shows the spatial distribution of the stations registered i
   :alt: ANA gauges stations
 
 
-Embora haja estações por todo território brasileiro, a sua maior concentração está na costa lest, onde ficam concentradas as maiores cidades.
+Although there are stations all over Brazil, their greatest concentration is on the east coast, where the largest cities are concentrated.
+
 
 ANA gauges dataset
 --------------------------------
