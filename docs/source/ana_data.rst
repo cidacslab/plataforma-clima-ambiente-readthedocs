@@ -149,7 +149,8 @@ The HidroWeb system also informs about the possibility of API access. However, u
 Descriptive information about listed gauges stations
 ^^^^^^^^^^^^^^^^^^^^^^^
 
- This section presents descriptive information on the single list of rain gauges registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
+
+This section presents descriptive information on the single list of rain gauges registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
 
 
 +--------------------+-----------------+
@@ -180,6 +181,7 @@ Descriptive information about listed gauges stations
 
 
 Of the 23,792 stations registered, 21.5% are under the responsibility of the ANA, while 10.6% are under the responsibility of CEMADEN (Disaster Monitoring Centre). INMET (the National Meteorological Institute) has 3.5 per cent of the stations registered in the ANA system. In addition to the 10 government agencies with the highest frequency of registered stations (61.7 per cent), there are another 745 (38.3 per cent) agencies with stations registered in the ANA system.
+
 
 The following figure shows the spatial distribution of the stations registered in the ANA system according to the agency responsible.
 
