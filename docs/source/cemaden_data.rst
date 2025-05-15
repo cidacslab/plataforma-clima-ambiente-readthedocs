@@ -117,6 +117,7 @@ See the :ref:`tabela-sensores` for the codes associated with the environmental v
    660      Soil Moisture Level 6 Minimum Daily
    ======== ===============================================
 
+See the :ref:`tabela-sensores` for the codes associated with the environmental variables monitored by each station type.
 
 
 Important: Not all station types have data for the Daily or Non-Daily categories and neither do the same sensors. Each type can provide different data, depending on its specific sensors.
