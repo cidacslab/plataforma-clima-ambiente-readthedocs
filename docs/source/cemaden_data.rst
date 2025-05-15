@@ -54,7 +54,7 @@ The data made available in the PED follow a clear organization, both in format a
 Types of sensors
 ^^^^^^^^^^^^^^^^
 
-Each type of station monitored by CEMADEN presents data according to some sensors. These sensors monitor different environmental variables. Among them, we have the following codes shown in the :ref:`sensor table <tabela-sensores>`:
+Each type of station monitored by CEMADEN presents data according to some sensors. These sensors monitor different environmental variables. Among them, we have the following codes shown in the :ref:`Sensor Table <tabela-sensores>` :
 
 .. _tabela-sensores:
 
