@@ -28,6 +28,7 @@ Contents
 
 .. toctree::
    ana_data
+   cemaden_data
    health
    surveillance
    biological
