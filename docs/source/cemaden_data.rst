@@ -62,58 +62,59 @@ Each type of station monitored by CEMADEN presents data according to some sensor
    :widths: auto
    :align: center
 
-+---------------------------------------------+------+
-| Description                                 | Code |
-+---------------------------------------------+------+
-| Rain                                        | 10   |
-| Level                                       | 20   |
-| Air temperature                             | 60   |
-| Relative humidity                           | 90   |
-| Wind speed                                  | 180  |
-| Wind direction                              | 190  |
-| Solar radiation                             | 210  |
-| Precipitation Intensity                     | 240  |
-| Minimum Level                               | 260  |
-| Maximum Level                               | 270  |
-| Balance Radiation                           | 280  |
-| Soil Temperature Level 1                    | 290  |
-| Soil Temperature Level 2                    | 300  |
-| Soil Temperature Level 3                    | 310  |
-| Soil Temperature Level 4                    | 320  |
-| Soil Moisture Level 1                       | 330  |
-| Soil Moisture Level 2                       | 340  |
-| Soil Moisture Level 3                       | 350  |
-| Soil Moisture Level 4                       | 360  |
-| Maximum daily air temperature               | 370  |
-| Maximum daily relative humidity             | 390  |
-| Minimum daily relative humidity             | 400  |
-| Maximum daily wind speed                    | 410  |
-| Wind direction at maximum daily speed       | 420  |
-| Daily prevailing wind direction             | 430  |
-| Soil Temperature Level 1 Maximum Daily      | 440  |
-| Soil Temperature Level 1 Daily Minimum      | 450  |
-| Soil Temperature Level 2 Maximum Daily      | 460  |
-| Soil Temperature Level 2 Daily Minimum      | 470  |
-| Soil Temperature Level 3 Maximum Daily      | 480  |
-| Soil Temperature Level 3 Daily Minimum      | 490  |
-| Soil Temperature Level 4 Maximum Daily      | 500  |
-| Soil Temperature Level 4 Daily Minimum      | 510  |
-| Soil Moisture Level 1 Maximum Daily         | 520  |
-| Soil Moisture Level 1 Daily Minimum         | 530  |
-| Soil Moisture Level 2 Maximum Daily         | 540  |
-| Soil Moisture Level 2 Minimum Daily         | 550  |
-| Soil Moisture Level 3 Maximum Daily         | 560  |
-| Soil Moisture Level 3 Minimum Daily         | 570  |
-| Soil Moisture Level 4 Maximum Daily         | 580  |
-| Soil Moisture Level 4 Minimum Daily         | 590  |
-| Daily Accumulated Precipitation             | 600  |
-| Soil Moisture Level 5                       | 610  |
-| Soil Moisture Level 6                       | 620  |
-| Soil Moisture Level 5 Maximum Daily         | 630  |
-| Soil Moisture Level 5 Minimum Daily         | 640  |
-| Soil Moisture Level 6 Maximum Daily         | 650  |
-| Soil Moisture Level 6 Minimum Daily         | 660  |
-+---------------------------------------------+------+
+   ======== ===============================================
+   Code     Description
+   ======== ===============================================
+   10       Rain
+   20       Level
+   60       Air temperature
+   90       Relative humidity
+   180      Wind speed
+   190      Wind direction
+   210      Solar radiation
+   240      Precipitation Intensity
+   260      Minimum Level
+   270      Maximum Level
+   280      Balance Radiation
+   290      Soil Temperature Level 1
+   300      Soil Temperature Level 2
+   310      Soil Temperature Level 3
+   320      Soil Temperature Level 4
+   330      Soil Moisture Level 1
+   340      Soil Moisture Level 2
+   350      Soil Moisture Level 3
+   360      Soil Moisture Level 4
+   370      Maximum daily air temperature
+   390      Maximum daily relative humidity
+   400      Minimum daily relative humidity
+   410      Maximum daily wind speed
+   420      Wind direction at maximum daily speed
+   430      Daily prevailing wind direction
+   440      Soil Temperature Level 1 Maximum Daily
+   450      Soil Temperature Level 1 Daily Minimum
+   460      Soil Temperature Level 2 Maximum Daily
+   470      Soil Temperature Level 2 Daily Minimum
+   480      Soil Temperature Level 3 Maximum Daily
+   490      Soil Temperature Level 3 Daily Minimum
+   500      Soil Temperature Level 4 Maximum Daily
+   510      Soil Temperature Level 4 Daily Minimum
+   520      Soil Moisture Level 1 Maximum Daily
+   530      Soil Moisture Level 1 Daily Minimum
+   540      Soil Moisture Level 2 Maximum Daily
+   550      Soil Moisture Level 2 Minimum Daily
+   560      Soil Moisture Level 3 Maximum Daily
+   570      Soil Moisture Level 3 Minimum Daily
+   580      Soil Moisture Level 4 Maximum Daily
+   590      Soil Moisture Level 4 Minimum Daily
+   600      Daily Accumulated Precipitation
+   610      Soil Moisture Level 5
+   620      Soil Moisture Level 6
+   630      Soil Moisture Level 5 Maximum Daily
+   640      Soil Moisture Level 5 Minimum Daily
+   650      Soil Moisture Level 6 Maximum Daily
+   660      Soil Moisture Level 6 Minimum Daily
+   ======== ===============================================
+
 
 
 Important: Not all station types have data for the Daily or Non-Daily categories and neither do the same sensors. Each type can provide different data, depending on its specific sensors.
