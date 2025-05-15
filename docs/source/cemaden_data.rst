@@ -56,7 +56,7 @@ Types of sensors
 
 Each type of station monitored by CEMADEN presents data according to some sensors. These sensors monitor different environmental variables.
 
-See the :ref:`tabela-sensores` for the codes associated with the environmental variables monitored by each station type.
+See the :ref:`Sensor types table <tabela-sensores>` for the codes associated with the environmental variables monitored by each station type.
 
 .. _tabela-sensores:
 
@@ -116,9 +116,6 @@ See the :ref:`tabela-sensores` for the codes associated with the environmental v
    650      Soil Moisture Level 6 Maximum Daily
    660      Soil Moisture Level 6 Minimum Daily
    ======== ===============================================
-
-See the :ref:`tabela-sensores` for the codes associated with the environmental variables monitored by each station type.
-
 
 Important: Not all station types have data for the Daily or Non-Daily categories and neither do the same sensors. Each type can provide different data, depending on its specific sensors.
 
