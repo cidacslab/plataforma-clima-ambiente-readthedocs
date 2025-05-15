@@ -56,7 +56,7 @@ Types of sensors
 
 Each type of station monitored by CEMADEN presents data according to some sensors. These sensors monitor different environmental variables.
 
-See the :ref:`Sensor types table <tabela-sensores>` for the codes associated with the environmental variables monitored by each station type.
+See the :ref:`tabela-sensores` for the codes associated with the environmental variables monitored by each station type.
 
 .. _tabela-sensores:
 
