@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'CIDACS Clima - Data descriptor'
-copyright = '2022, Marcos Eustorgio Filho'
+copyright = '2025, Marcos Eustorgio Filho'
 author = 'Marcos'
 
 release = '0.1'

@@ -1,13 +1,11 @@
+========================
 ANA preciptation dataset
-===========
-
+========================
 Updated: 2024-08-14
 
 
 ANA gauges stations
-----------------------
-
-
+-------------------
 
 Description
 ^^^^^^^^^^^^^
@@ -20,6 +18,10 @@ List of stations registered by the ANA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ANA has two types of stations with rain gauges registered in its system. The telemetric (automatic) stations are responsible for collecting and assisting in monitoring hydrometeorological measurements remotely, with real-time data or indicators. The so-called conventional stations have rain gauges that require conventional collection of hydrometeorological data, i.e., daily records made by observers and measurements taken in the field by hydrology technicians and hydrologist engineers. ANA's telemetry portal provides information about these two types of stations through the electronic addresses https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario and https://telemetriaws1.ana.gov.br/EstacoesTelemetricas.aspx, used to access descriptions of conventional and telemetric stations, respectively.
+
+Telemetric gauge stations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 The list of telemetric stations is made available by ANA in spreadsheet format (.xls) and contains information such as: Station Name (``NomeEstacao``), Station Code (``CodEstacao``), Codes associated with the river basins and sub-basins to which the station is related (``Bacia``, ``SubBacia``), names for the station operator and person in charge, as well as geolocation information such as latitude, longitude, and altitude. This list is available in the file ``EstacoesTelemetricas_Todas_12_08_2024.xls``, and is structured according to the following table.
 
@@ -50,6 +52,14 @@ The list of telemetric stations is made available by ANA in spreadsheet format (
 | 4717 | ESTACAO TESTE RESOLUCAO 99999999 | 99999999   | 05001 - EMP.TESTES - Empresa de Teste da Resol... | -26.3936 | -51.3936  | 670.0    | Setor Elétrico   | Ativo         |
 +------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
 
+The documentation of all the variables available in the list of telemetric gauge stations provided by the ANA is shown in the table below:
+
+
+
+
+
+Conventional gauge stations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For the conventional stations, available via `HidroInventario <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, it is necessary to extract the descriptive information via HTTP GET requests, as this type of station does not have a spreadsheet list available from the ANA. As the codes for these stations are not available a priori, the requests were made by Brazilian state, with each query returning all the conventional stations registered in a given federative unit. To carry out this task, a Web Scraping algorithm was developed in the R language, called ``funcao_get_list_ANA_Hidro.R``.
 
@@ -90,7 +100,7 @@ After obtaining the codes of all the stations (conventional or telemetric) regis
 
 
 Multiple record checks per station
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ANA's list of conventional stations contains 19529 stations, while the telemetric stations via the ANA contain just 4545 unique stations. Based on the list of these stations, a study was made of which stations could be present in both lists, so that multiple rainfall series for the same station would not be downloaded.
 
@@ -147,7 +157,7 @@ The HidroWeb system also informs about the possibility of API access. However, u
 
 
 Descriptive information about listed gauges stations
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 This section presents descriptive information on the single list of rain gauges registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
@@ -197,21 +207,19 @@ Although there are stations all over Brazil, their greatest concentration is on 
 
 
 ANA gauges dataset
---------------------------------
+------------------
 
 
 Description
 ^^^^^^^^^^^
 
-lipsum
-
 Data access information
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
 lipsum
 
 Methods of data collection
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 lipsum
 
