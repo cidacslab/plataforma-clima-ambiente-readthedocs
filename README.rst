@@ -17,6 +17,7 @@ https://sphinx-doc-zh.readthedocs.io/en/latest/config.html#confval-html_title
 
 Our documentation can be accessed here:
 
-https://aesop-data-documentation.readthedocs.io/en/latest/
+https://plataforma-clima-ambiente-readthedocs.readthedocs.io/en/latest/index.html
+
 
 Enjoy!
