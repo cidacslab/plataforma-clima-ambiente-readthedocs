@@ -134,7 +134,7 @@ The data made available via PED are later processed into a structure that combin
 After processing, the data files are segmented according to the structure defined above, being organized into directories according to the subdivisions by type, category, sensor and year.
 
 .. image:: images/cemaden_folders_1.png
-  :width: 500
+  :width: 700
   :alt: Structure of CEMADEN data processed
 
 
@@ -151,7 +151,7 @@ When carrying out the analysis, all stations registered until 12/31/2023 were co
 The list of stations made available by CEMADEN has a structure similar to the one shown below:
 
 +------+----------+---------------+------------+---------+-------------+--------------+----------------------+-------------------------+-------------------------+-------------------------+-----+------------+---------+----------------+------------+------------+--------------------+--------+------------+-----------------------+-----+
-| Id   | altitude | cidade        | codestacao | codibge | cota_alerta | cota_atencao | cota_transbordamento | data_instalacao         | dh_cadastro             | dh_inicio_inativo       | ... | id_estacao | id_rede | id_tipoestacao | latitude   | longitude  | nome               | offset | rede_sigla | tipoestacao_descricao | uf  |
+|   | altitude | cidade        | codestacao | codibge | cota_alerta | cota_atencao | cota_transbordamento | data_instalacao         | dh_cadastro             | dh_inicio_inativo       | ... | id_estacao | id_rede | id_tipoestacao | latitude   | longitude  | nome               | offset | rede_sigla | tipoestacao_descricao | uf  |
 +------+----------+---------------+------------+---------+-------------+--------------+----------------------+-------------------------+-------------------------+-------------------------+-----+------------+---------+----------------+------------+------------+--------------------+--------+------------+-----------------------+-----+
 | 0 | 0.0 | BRASSÍLIA | 530010805A | 5300108 | NaN | NaN | NaN | 2015-02-09 19:09:43.717 | 2015-02-09 19:09:43.717 | 2025-03-03 11:38:52.870 | ... | 7878 | 11 | 1 | -15.876800 | -47.962700 | Nucleo Bandeirante | NaN | CEMADEN | Pluviométrica | DF |
 +------+----------+---------------+------------+---------+-------------+--------------+----------------------+-------------------------+-------------------------+-------------------------+-----+------------+---------+----------------+------------+------------+--------------------+--------+------------+-----------------------+-----+
@@ -332,7 +332,7 @@ Figure :ref:`station-distribution-map` shows the spatial distribution of the 3.8
 .. figure:: images/station_distribution_cemaden.png
    :alt: Spatial distribution of CEMADEN stations
    :align: center
-   :figwidth: 50%
+   :width: 700
 
    Spatial distribution of the 3.873 CEMADEN stations as of 12/31/2023.
 
