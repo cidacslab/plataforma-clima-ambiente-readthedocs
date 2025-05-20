@@ -26,14 +26,16 @@ Links, references, codes, program, or data processing workflow is provided to fa
 Contents
 --------
 
+.. health
+.. surveillance
+.. biological
+.. social_economical
+.. human_mobility
+
 .. toctree::
    ana_data
    cemaden_data
-   health
-   surveillance
-   biological
-   social_economical
-   human_mobility
+   
 
 
 .. rubric:: References
