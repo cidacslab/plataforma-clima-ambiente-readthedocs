@@ -31,6 +31,9 @@ intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
 
+# Setando caminho para arquivos estaticos
+html_static_path = ['_static', 'images']
+
 
 # -- Options for HTML output
 

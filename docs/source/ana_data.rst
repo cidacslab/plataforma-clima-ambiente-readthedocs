@@ -17,49 +17,25 @@ However, in order to start the download process, it is necessary to have the cod
 List of stations registered by the ANA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ANA has two types of stations with rain gauges registered in its system. The telemetric (automatic) stations are responsible for collecting and assisting in monitoring hydrometeorological measurements remotely, with real-time data or indicators. The so-called conventional stations have rain gauges that require conventional collection of hydrometeorological data, i.e., daily records made by observers and measurements taken in the field by hydrology technicians and hydrologist engineers. ANA's telemetry portal provides information about these two types of stations through the electronic addresses https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario and https://telemetriaws1.ana.gov.br/EstacoesTelemetricas.aspx, used to access descriptions of conventional and telemetric stations, respectively.
+ANA has two types of stations with rain gauges registered in its system. The **Telemetric (automatic) Stations** are responsible for collecting and assisting in monitoring hydrometeorological measurements remotely, with real-time data or indicators. The so-called **Conventional Stations** have rain gauges that require conventional collection of hydrometeorological data, i.e., daily records made by observers and measurements taken in the field by hydrology technicians and hydrologist engineers. 
 
-Telemetric gauge stations
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+The ANA's telemetry portal provides registration information on these two types of stations via the following electronic links:
 
+* **Conventional Stations**: https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario 
 
-The list of telemetric stations is made available by ANA in spreadsheet format (.xls) and contains information such as: Station Name (``NomeEstacao``), Station Code (``CodEstacao``), Codes associated with the river basins and sub-basins to which the station is related (``Bacia``, ``SubBacia``), names for the station operator and person in charge, as well as geolocation information such as latitude, longitude, and altitude. This list is available in the file ``EstacoesTelemetricas_Todas_12_08_2024.xls``, and is structured according to the following table.
-
-
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-|      | NomeEstacao                      | CodEstacao | Responsavel                                       | Latitude | Longitude | Altitude | Origem           | StatusEstacao |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 0    | RIO PRETO DA EVA                 | 259004     | 00001 - ANA - Agência Nacional de Águas           | -2.7003  | -59.6997  | 0.0      | Açudes Semiárido | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 1    | UHE BELO MONTE BR230             | 351004     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.1267  | -51.7906  | 33.0     | Setor Elétrico   | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 2    | UHE BELO MONTE SÍTIO PIMENTAL    | 351005     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.3758  | -51.9403  | 110.0    | Setor Elétrico   | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 3    | UHE BELO MONTE VISTA ALEGRE      | 352009     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.1186  | -52.2525  | 125.0    | Setor Elétrico   | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 4    | UHE BELO MONTE SÃO FRANCISCO     | 352010     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.2533  | -52.3489  | 124.0    | Setor Elétrico   | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| ...  | ...                              | ...        | ...                                               | ...      | ...       | ...      | ...              | ...           |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 4713 | PEDRO OSÓRIO                     | 88641000   | 00001 - ANA - Agência Nacional de Águas           | -31.8633 | -52.8161  | 16.0     | CotaOnline       | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 4714 | ECLUSA SÃO GONÇALO               | 88690050   | 00266 - SEMA-RS - SEMA-RS                         | -31.8111 | -52.3892  | 0.0      | RHN              | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 4715 | SANTA ISABEL CGH (UFPEL)         | 88700010   | 00266 - SEMA-RS - SEMA-RS                         | -32.1189 | -52.5936  | 0.0      | RHN              | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 4716 | PORTO DE PELOTAS                 | 88810100   | 00765 - PELOTAS - Prefeitura Municipal de Pelo... | -31.7822 | -52.3333  | 0.0      | RHN              | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-| 4717 | ESTACAO TESTE RESOLUCAO 99999999 | 99999999   | 05001 - EMP.TESTES - Empresa de Teste da Resol... | -26.3936 | -51.3936  | 670.0    | Setor Elétrico   | Ativo         |
-+------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
-
-The documentation of all the variables available in the list of telemetric gauge stations provided by the ANA is shown in the table below:
+* **Telemetric (automatic) Stations**: https://telemetriaws1.ana.gov.br/EstacoesTelemetricas.aspx
 
 
+For both lists, stations that started operating by 12/31/2023 were considered, so that by the end of 2024 there could be stations with at least one year of data available.
 
+.. note::
+  The list of Conventional stations registered until 12/31/2023 can be obtained via the following link:
+
+  The list of telemetry stations registered until 12/31/2023 can be obtained via the following link:
 
 
 Conventional gauge stations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For the conventional stations, available via `HidroInventario <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, it is necessary to extract the descriptive information via HTTP GET requests, as this type of station does not have a spreadsheet list available from the ANA. As the codes for these stations are not available a priori, the requests were made by Brazilian state, with each query returning all the conventional stations registered in a given federative unit. To carry out this task, a Web Scraping algorithm was developed in the R language, called ``funcao_get_list_ANA_Hidro.R``.
 
@@ -90,6 +66,44 @@ This algorithm is responsible for making requests by state to list the stations 
 +-------+--------------------------------------+---------+------------------+----------+-----------+----------+-------------+-------------+----------------+------------------------+
 | 19829 | BERNARDO SAYÃO                       | 1748009 | SEMARH-TO        | -7.8758  | -48.8775  | NaN      | 2           | 2           | 27             | 1                      |
 +-------+--------------------------------------+---------+------------------+----------+-----------+----------+-------------+-------------+----------------+------------------------+
+
+The documentation of all the variables available in the list of conventional gauge stations provided by the ANA is shown in the table below:
+
+
+
+Telemetric gauge stations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The list of telemetric stations is made available by ANA in spreadsheet format (.xls) and contains information such as: Station Name (``NomeEstacao``), Station Code (``CodEstacao``), Codes associated with the river basins and sub-basins to which the station is related (``Bacia``, ``SubBacia``), names for the station operator and person in charge, as well as geolocation information such as latitude, longitude, and altitude. 
+
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+|      | NomeEstacao                      | CodEstacao | Responsavel                                       | Latitude | Longitude | Altitude | Origem           | StatusEstacao |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 0    | RIO PRETO DA EVA                 | 259004     | 00001 - ANA - Agência Nacional de Águas           | -2.7003  | -59.6997  | 0.0      | Açudes Semiárido | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 1    | UHE BELO MONTE BR230             | 351004     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.1267  | -51.7906  | 33.0     | Setor Elétrico   | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 2    | UHE BELO MONTE SÍTIO PIMENTAL    | 351005     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.3758  | -51.9403  | 110.0    | Setor Elétrico   | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 3    | UHE BELO MONTE VISTA ALEGRE      | 352009     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.1186  | -52.2525  | 125.0    | Setor Elétrico   | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 4    | UHE BELO MONTE SÃO FRANCISCO     | 352010     | 00594 - NORTE ENERGIA - Norte Energia S.A         | -3.2533  | -52.3489  | 124.0    | Setor Elétrico   | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| ...  | ...                              | ...        | ...                                               | ...      | ...       | ...      | ...              | ...           |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 4713 | PEDRO OSÓRIO                     | 88641000   | 00001 - ANA - Agência Nacional de Águas           | -31.8633 | -52.8161  | 16.0     | CotaOnline       | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 4714 | ECLUSA SÃO GONÇALO               | 88690050   | 00266 - SEMA-RS - SEMA-RS                         | -31.8111 | -52.3892  | 0.0      | RHN              | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 4715 | SANTA ISABEL CGH (UFPEL)         | 88700010   | 00266 - SEMA-RS - SEMA-RS                         | -32.1189 | -52.5936  | 0.0      | RHN              | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 4716 | PORTO DE PELOTAS                 | 88810100   | 00765 - PELOTAS - Prefeitura Municipal de Pelo... | -31.7822 | -52.3333  | 0.0      | RHN              | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+| 4717 | ESTACAO TESTE RESOLUCAO 99999999 | 99999999   | 05001 - EMP.TESTES - Empresa de Teste da Resol... | -26.3936 | -51.3936  | 670.0    | Setor Elétrico   | Ativo         |
++------+----------------------------------+------------+---------------------------------------------------+----------+-----------+----------+------------------+---------------+
+
+The documentation of all the variables available in the list of telemetric gauge stations provided by the ANA is shown in the table below:
 
 
 

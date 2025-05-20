@@ -20,7 +20,7 @@ CEMADEN collects environmental data from various sources and sensors spread thro
 How to access the data: PED Platform
 ------------------------------------
 
-The observational data collected by CEMADEN are available to the public through the `Data Delivery Platform (PED) <https://ped.cemaden.gov.br/>`_. In it, anyone can make data requests, respecting some rules:
+The observational data collected by CEMADEN are available to the public through the `Data Delivery Platform (PED) <https://ped.cemaden.gov.br/>`_ [2]_. In it, anyone can make data requests, respecting some rules:
 
 *	Limit of requests:
 
@@ -29,24 +29,22 @@ The observational data collected by CEMADEN are available to the public through 
 
 *	Scheduled requests (histories) are available for download for 30 days .
 *	Accounts that have been inactive for more than one year are automatically removed.
-*	It is mandatory to cite the source of the data when using them: DATA FROM THE CEMADEN/MCTIC OBSERVATIONAL NETWORK.
+
+.. note::
+   It is mandatory to cite the source of the data when using them: DATA FROM THE CEMADEN/MCTIC OBSERVATIONAL NETWORK.
 
 
 Data structure
 --------------
 
-The data made available in the `PED <https://ped.cemaden.gov.br/>`_ follow a clear organization, both in format and classification:
+The data made available in the `PED <https://ped.cemaden.gov.br/>`_ [2]_ follow a clear organization, both in format and classification:
 
-*	Each station file can contain data in two formats:
+*	Each station file can contain data in two categories:
 
-  *	Daily (e.g., accumulated rainfall per day);
-  *	Non-daily (e.g. hourly, real-time data).
+  *	**Daily** (e.g., accumulated rainfall per day);
+  *	**Non-daily** (e.g. hourly, real-time data).
 
-*	The categories of data are organized as follows:
-
-  *	Category → (Daily / Non-daily)
-
-*	Station Type:
+*	The stations also have different **types**:
 
   *	"C" → Acqua
   *	"U" → Agrometeorological
@@ -123,7 +121,8 @@ See the :ref:`Sensor types table <tabela-sensores>` for the codes associated wit
    660      Soil Moisture Level 6 Minimum Daily
    ======== ===============================================
 
-Important: Not all station types have data for the Daily or Non-Daily categories and neither do the same sensors. Each type can provide different data, depending on its specific sensors.
+.. note::
+   Important: Not all station types have data for the Daily or Non-Daily categories and neither do the same sensors. Each type can provide different data, depending on its specific sensors.
 
 
 Processing Script
@@ -215,6 +214,10 @@ The dictionary with all the variables available on CEMADEN's station registratio
    ========================  ===============================================================  ==========
 
 The data regarding the list of stations were obtained through the python code developed to make requests to the CEMADEN system via PED. However, to make these requests, it is necessary to register with the PED, with login and password, so that a temporary access token is generated, necessary to make data requests.
+
+.. note::
+   
+   You can download the complete list of registered stations here: `CEMADEN registered stations <_static/lista_estacoes_cemaden.csv>`_
 
 
 Geographical coverage by type of stations
@@ -359,9 +362,9 @@ CEMADEN is an essential pillar in the policy of prevention of natural disasters 
 
 .. rubric:: References
 
-(1) Centro Nacional de Monitoramento e Alertas de Desastres Naturais – CEMADEN. Observational Network Data of CEMADEN/MCTIC [Internet]. Brazil: CEMADEN; [cited 2025 May 19]. Available from: http://www2.cemaden.gov.br/
+.. [1] Centro Nacional de Monitoramento e Alertas de Desastres Naturais – CEMADEN. Observational Network Data of CEMADEN/MCTIC [Internet]. Brazil: CEMADEN; [cited 2025 May 19]. Available from: http://www2.cemaden.gov.br/
 
-(2) Centro Nacional de Monitoramento e Alertas de Desastres Naturais – CEMADEN. Data Delivery Platform - PED [Internet]. Brazil: CEMADEN; [cited 2025 May 19]. Available from: https://ped.cemaden.gov.br/
+.. [2] Centro Nacional de Monitoramento e Alertas de Desastres Naturais – CEMADEN. Data Delivery Platform - PED [Internet]. Brazil: CEMADEN; [cited 2025 May 19]. Available from: https://ped.cemaden.gov.br/
 
 **Contributors**
 
