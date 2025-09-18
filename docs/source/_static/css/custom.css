@@ -2,3 +2,12 @@ section p {
     text-align: justify;
 }
 
+/* Cor de fundo da barra do logo / nome do projeto */
+.wy-side-nav-search {
+  background-color: #f6e4d1 !important;  /* escolha sua cor */
+}
+
+/* Ajustar cor do texto do nome do projeto para contraste */
+.wy-side-nav-search > a {
+  color: #76140c !important;
+}
