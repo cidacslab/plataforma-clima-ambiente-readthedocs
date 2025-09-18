@@ -11,3 +11,20 @@ section p {
 .wy-side-nav-search > a {
   color: #76140c !important;
 }
+
+
+
+/* fundo da barra onde fica o logo / nome do projeto */
+div.wy-side-nav-search {
+  background-color: #f6e4d1 !important;
+}
+
+/* texto do nome do projeto */
+div.wy-side-nav-search > a {
+  color: #76140c !important;
+}
+
+/* se houver logo, garantir que o fundo do link não sobrescreva */
+div.wy-side-nav-search a img {
+  background: transparent !important;
+}
