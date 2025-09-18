@@ -39,6 +39,8 @@ html_static_path = ['_static']
 
 html_theme = 'sphinx_book_theme'
 
+html_css_files = ['css/custom.css']
+
 html_logo = '_static/images/cidacs_clima_logo.png'
 
 htmlhelp_basename = 'TableswithSphinxdoc'
