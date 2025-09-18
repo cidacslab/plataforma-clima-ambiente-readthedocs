@@ -120,7 +120,7 @@ The ANA's list of conventional stations contains 19529 stations, while the telem
 
 An investigation revealed 4263 telemetric stations present only in the Telemetric Stations list, 257 stations registered as telemetric and also conventional (HidroInventario) according to both ANA station lists, and finally, 19272 stations are registered only as conventional (HidroInventario).
 
-.. image:: images/venn_gauges_ana.png
+.. image:: _static/images/venn_gauges_ana.png
   :width: 400
   :alt: Alternative text
 
@@ -210,7 +210,7 @@ Of the 23,792 stations registered, 21.5% are under the responsibility of the ANA
 The following figure shows the spatial distribution of the stations registered in the ANA system according to the agency responsible.
 
 
-.. image:: images/grafico_estacoes_responsaveis.png
+.. image:: _static/images/grafico_estacoes_responsaveis.png
   :width: 600
   :alt: ANA gauges stations
 

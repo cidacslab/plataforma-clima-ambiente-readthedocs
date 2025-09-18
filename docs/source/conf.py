@@ -32,14 +32,14 @@ intersphinx_disabled_domains = ['std']
 templates_path = ['_templates']
 
 # Setando caminho para arquivos estaticos
-html_static_path = ['_static', 'images']
+html_static_path = ['_static']
 
 
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
 
-html_logo = 'cidacs_clima_logo.png'
+html_logo = '_static/images/cidacs_clima_logo.png'
 
 htmlhelp_basename = 'TableswithSphinxdoc'
 
