@@ -132,7 +132,7 @@ The data made available via PED are later processed into a structure that combin
 
 After processing, the data files are segmented according to the structure defined above, being organized into directories according to the subdivisions by type, category, sensor and year.
 
-.. image:: images/cemaden_folders_1.png
+.. image:: _static/images/cemaden_folders_1.png
   :width: 700
   :alt: Structure of CEMADEN data processed
 
@@ -334,7 +334,7 @@ Figure :ref:`station-distribution-map` shows the spatial distribution of the 3.8
 
 .. _station-distribution-map:
 
-.. figure:: images/station_distribution_cemaden.png
+.. figure:: _static/images/station_distribution_cemaden.png
    :alt: Spatial distribution of CEMADEN stations
    :align: center
    :width: 700
