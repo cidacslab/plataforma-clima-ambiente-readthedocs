@@ -3,8 +3,8 @@
 # -- Project information
 
 project = 'CIDACS Clima - Data descriptor'
-copyright = '2025, Marcos Eustorgio Filho'
-author = 'Marcos'
+copyright = '2025, Centro de Integração de Dados e Conhecimentos para Saúde (CIDACS) / Fiocruz'
+author = 'CIDACS / Fiocruz'
 
 release = '0.1'
 version = '0.1.1'
