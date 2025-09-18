@@ -7,7 +7,7 @@ copyright = '2025, Marcos Eustorgio Filho'
 author = 'Marcos'
 
 release = '0.1'
-version = '0.1.0'
+version = '0.1.1'
 
 import sys
 import os
@@ -37,7 +37,7 @@ html_static_path = ['_static', 'images']
 
 # -- Options for HTML output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
 
 html_logo = 'cidacs_clima_logo.png'
 
