@@ -17,7 +17,7 @@ build:
   # install theme
   jobs:
     post_create_environment:
-      - python -m pip install sphinx-book-theme
+      - python -m pip install sphinx-book-theme sphinx-rtd-theme
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
