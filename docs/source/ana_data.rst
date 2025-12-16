@@ -161,167 +161,144 @@ Os quatro diagramas apresentados a seguir oferecem uma visão estruturada e prog
 As cores utilizadas nos diagramas representam conjuntos de etapas com funções semelhantes dentro do pipeline: configurações iniciais, operações de requisição e parsing, rotinas de validação e processamento dos dados, e ações de exportação. Dessa forma, a mesma cor aparece em diferentes diagramas sempre que se refere ao mesmo conjunto de tarefas, ajudando o leitor a identificar rapidamente a categoria de cada etapa e a acompanhar o fluxo completo de obtenção e tratamento dos dados cadastrais da ANA.
 
 
-
-.. image:: _static/images/ana_img/flow_1_config.png
-  :width: 800
-  :alt: Settings and functions
-
-
-.. image:: _static/images/ana_img/flow_2_request.png
-  :width: 700
-  :alt: Request and parsing
-
-
-.. image:: _static/images/ana_img/flow_3_validation.png
-  :width: 900
-  :alt: Data validation and cleansing
-
-
-.. image:: _static/images/ana_img/flow_4_pipeline.png
-  :width: 900
-  :alt: Main pipeline
-
-
-
 .. mermaid::
   flowchart LR
-    subgraph S1["Configurações e funções"]
-      A1["Carregar pacotes"]:::configCode
-      A2["Definir constantes da API"]:::configCode
-      A3["Definir funções auxiliares e helpers"]:::configCode
+    subgraph S1["Configuration and Functions"]
+      A1["Load packages"]:::configCode
+      A2["Define API constants"]:::configCode
+      A3["Define helper and utility functions"]:::configCode
       A1 --> A2 --> A3
     end
 
-    subgraph S2["Sintaxe e dados cadastrais"]
-      B1["Definir nomes de arquivos por tipo de estação"]:::configCode
-      B2["Mapear campos cadastrais do inventário"]:::configCode
-      B3["Definir colunas para cálculo das datas de operação"]:::configCode
+    subgraph S2["Syntax and Registry Data"]
+      B1["Define file names by station type"]:::configCode
+      B2["Map inventory registry fields"]:::configCode
+      B3["Define columns for operation date calculations"]:::configCode
       B1 --> B2 --> B3
     end
 
-    %% Conexões entre secoes via node
-    %%S1 --> S2
+    %% Connections between sections via node
     A3 --> B1
 
-    %% Paleta de cores
+    %% Color palette
     classDef configCode fill:#fff3e0,stroke:#ef6c00;
     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
+
+
 .. mermaid::
   flowchart LR
-    subgraph S3["Requisição e parsing"]
-      C0["Validar tipo de estação (1 ou 2)"]:::reqCode
-      C1["Montar requisição HTTP com parâmetros"]:::reqCode
-      C2{"Status HTTP 200?"}:::reqCode
-        C2c1["Imprimir falha HTTP e retornar tabela vazia"]:::reqCode
-        C2c2["Ler XML e remover namespaces"]:::reqCode
-      C3{"Existe nó de erro?"}:::reqCode
-        C3c1["Imprimir mensagem de erro e retornar tabela vazia"]:::reqCode
-        C3c2["Localizar nós Table"]:::reqCode
-      C4{"Encontrou nós Table?"}:::reqCode
-        C4c1["Imprimir aviso de UF sem dados e retornar tabela vazia"]:::reqCode
-      C5["Extrair estações e montar tabela bruta"]:::reqCode
+    subgraph S3["Request Handling and Parsing"]
+      C0["Validate station type (1 or 2)"]:::reqCode
+      C1["Build HTTP request with parameters"]:::reqCode
+      C2{"HTTP status 200?"}:::reqCode
+        C2c1["Print HTTP failure and return empty table"]:::reqCode
+        C2c2["Read XML and remove namespaces"]:::reqCode
+      C3{"Error node exists?"}:::reqCode
+        C3c1["Print error message and return empty table"]:::reqCode
+        C3c2["Locate Table nodes"]:::reqCode
+      C4{"Table nodes found?"}:::reqCode
+        C4c1["Print warning for state with no data and return empty table"]:::reqCode
+      C5["Extract stations and build raw table"]:::reqCode
 
       C0 --> C1 --> C2
-      C2 -- "Não" --> C2c1
-      C2 -- "Sim" --> C2c2
+      C2 -- "No" --> C2c1
+      C2 -- "Yes" --> C2c2
       C2c2 --> C3
-      C3 -- "Sim" --> C3c1
-      C3 -- "Não" --> C3c2
+      C3 -- "Yes" --> C3c1
+      C3 -- "No" --> C3c2
       C3c2 --> C4
-      C4 -- "Não" --> C4c1
-      C4 -- "Sim" --> C5
+      C4 -- "No" --> C4c1
+      C4 -- "Yes" --> C5
     end
 
-    %% Conexões entre secoes via node
-
-    %% Paleta de cores
+    %% Color palette
     classDef configCode fill:#fff3e0,stroke:#ef6c00;
     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
+
+
 .. mermaid::
   flowchart LR
-    subgraph S4["Limpeza e tipagem"]
-      D1["Corrigir coordenadas geográficas"]:::validacao
-      D2["Converter números e datas"]:::validacao
-      D3["Padronizar textos e códigos"]:::validacao
+    subgraph S4["Data Cleaning and Typing"]
+      D1["Fix geographic coordinates"]:::validacao
+      D2["Convert numeric values and dates"]:::validacao
+      D3["Standardize text fields and codes"]:::validacao
       D1 --> D2 --> D3
     end
 
-    subgraph S5["Datas de operação"]
-      E1["Selecionar colunas de períodos por tipo"]:::validacao
-      E2["Calcular DataInicioOperacao"]:::validacao
-      E3["Calcular DataFimOperacao"]:::validacao
+    subgraph S5["Operation Dates"]
+      E1["Select period columns by type"]:::validacao
+      E2["Calculate DataInicioOperacao"]:::validacao
+      E3["Calculate DataFimOperacao"]:::validacao
       E1 --> E2 --> E3
     end
 
-    subgraph S6["Deduplicação"]
-      F1["Ordenar por datas administrativas"]:::validacao
-      F2["Manter cadastro mais recente por código"]:::validacao
+    subgraph S6["Deduplication"]
+      F1["Sort by administrative dates"]:::validacao
+      F2["Keep most recent registry per station code"]:::validacao
       F1 --> F2
     end
 
-    subgraph S7["Validação geográfica"]
-      G1["Ajustar altitude fora de faixa aceitável"]:::validacao
-      G2["Marcar latitudes e longitudes fora do Brasil"]:::validacao
+    subgraph S7["Geographic Validation"]
+      G1["Adjust altitude outside acceptable range"]:::validacao
+      G2["Flag latitudes and longitudes outside Brazil"]:::validacao
       G1 --> G2
     end
 
-    %% Conexões entre secoes via node
-    %%S4 --> S5
+    %% Connections between sections
     D3 --> E1
-    %%S5 --> S6
     E3 --> F1
-    %%S6 --> S7
     F2 --> G1
 
-    %% Paleta de cores
+    %% Color palette
     classDef configCode fill:#fff3e0,stroke:#ef6c00;
     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
+
+
 .. mermaid::
   flowchart LR
-    subgraph S8["Pipeline principal"]
-      H0["Definir tipos de estação e UFs de interesse"]:::configCode
-      H1{"Consulta por UF"}:::reqCode
-          H1h1["Consultar iterando por tipo de estação e UF"]:::reqCode
-          H1h2["Consultar todas as UFs de um tipo em uma única chamada"]:::reqCode
-      H2["Aplicar limpeza, datas, deduplicação e validação"]:::validacao
-      H3["Aplicar filtro por DataInicioOperacao"]:::exportacao
-      H4["Gerar resumos de estações por UF"]:::exportacao
-      H5{"Exportar estações filtradas?"}:::exportacao
-        H5h1["Exportar lista de estações em .parquet e .xlsx"]:::exportacao
-        H5h2["Exportar resumo de estações por UF .xlsx"]:::exportacao
-      H6["Guardar resultados em lista final"]
-      %%Conexoes internas
+    subgraph S8["Main Pipeline"]
+      H0["Define station types and target states"]:::configCode
+      H1{"Query by state"}:::reqCode
+          H1h1["Query by iterating over station type and state"]:::reqCode
+          H1h2["Query all states for a given station type in a single request"]:::reqCode
+      H2["Apply cleaning, date calculation, deduplication and validation"]:::validacao
+      H3["Apply filter by DataInicioOperacao"]:::exportacao
+      H4["Generate station summaries by state"]:::exportacao
+      H5{"Export filtered stations?"}:::exportacao
+        H5h1["Export station list to .parquet and .xlsx"]:::exportacao
+        H5h2["Export station summary by state to .xlsx"]:::exportacao
+      H6["Store results in final list"]
+
+      %% Internal connections
       H0 --> H1
-      H1 -- "Sim" --> H1h1 --> H2
-      H1 -- "Não" --> H1h2 --> H2
+      H1 -- "Yes" --> H1h1 --> H2
+      H1 -- "No" --> H1h2 --> H2
       H2 --> H3 --> H4 --> H5
-      H5 --"Sim" --> H5h1 --> H5h2
-      H5 --"Não" --> H6
+      H5 -- "Yes" --> H5h1 --> H5h2
+      H5 -- "No" --> H6
     end
 
-    %% Subgraph de legenda
-    subgraph LEG["Legenda"]
-        L1["Configurações"]:::configCode
-        L2["Requisições e Parsing"]:::reqCode
-        L3["Validações e Processamento"]:::validacao
-        L4["Exportação"]:::exportacao
+    %% Legend subgraph
+    subgraph LEG["Legend"]
+        L1["Configuration"]:::configCode
+        L2["Requests and Parsing"]:::reqCode
+        L3["Validation and Processing"]:::validacao
+        L4["Export"]:::exportacao
     end
 
-    %% Conexões entre secoes via node
-
-    %% Paleta de cores
+    %% Color palette
     classDef configCode fill:#fff3e0,stroke:#ef6c00;
     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
