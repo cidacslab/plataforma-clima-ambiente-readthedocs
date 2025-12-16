@@ -1,0 +1,14 @@
+# Core documentation tools
+sphinx>=8.0,<9.0
+docutils>=0.20
+
+# Mermaid diagrams
+sphinx-mermaid>=0.0.8
+
+# Themes
+sphinx-rtd-theme>=2.0.0
+sphinx-book-theme>=1.1.0
+
+# Utilities commonly used with Sphinx
+jinja2>=3.1
+pygments>=2.17

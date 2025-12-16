@@ -28,3 +28,13 @@ div.wy-side-nav-search > a {
 div.wy-side-nav-search a img {
   background: transparent !important;
 }
+
+
+
+/** Set Mermaid Diagrams to 100% width of screen by default */
+
+.mermaid svg { 
+  max-width: 100%; 
+  height: auto;
+}
+

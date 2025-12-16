@@ -14,14 +14,14 @@ import os
 import shlex
 
 # -- General configuration
-
+#sphinx_mermaid
 extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinxcontrib.mermaid'
+    'sphinxmermaid'
 ]
 
 intersphinx_mapping = {
@@ -34,6 +34,8 @@ templates_path = ['_templates']
 
 # Setando caminho para arquivos estaticos
 html_static_path = ['_static']
+
+# -- Options for diagrams output
 
 
 # -- Options for HTML output
