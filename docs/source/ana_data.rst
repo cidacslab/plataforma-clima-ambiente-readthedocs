@@ -163,22 +163,22 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
 
 
 .. image:: _static/images/ana_img/flow_1_config.png
-  :width: 600
+  :width: 800
   :alt: Settings and functions
 
 
 .. image:: _static/images/ana_img/flow_2_request.png
-  :width: 600
+  :width: 700
   :alt: Request and parsing
 
 
 .. image:: _static/images/ana_img/flow_3_validation.png
-  :width: 600
+  :width: 900
   :alt: Data validation and cleansing
 
 
 .. image:: _static/images/ana_img/flow_4_pipeline.png
-  :width: 600
+  :width: 900
   :alt: Main pipeline
 
 
