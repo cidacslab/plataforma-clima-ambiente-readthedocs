@@ -6,7 +6,7 @@ This documentation provides a description of all the databases used in “Cidacs
 
 Coordinated by Cidacs, the initiative brings together partners such as the National Institute for Space Research (INPE), the National Center for Natural Disaster Monitoring and Alerts (CEMADEN), the European Space Agency (ESA), Fiocruz's Institute for Scientific and Technological Communication and Information (ICICT), and the Rene Rachou Institute (Fiocruz Minas Gerais). It also has the collaboration of the Fiocruz Center for International Relations in Health, the University of São Paulo (USP), The London School of Economics and Political Science (LSE), The London School of Hygiene & Tropical Medicine (LSHTM), the University of Lancaster, the Barcelona Institute for Global Health (ISGlobal), and the Federal University of Bahia (UFBA) [1]_.
 
-.. image:: images/data_sources.png
+.. image:: _static/images/index_img/data_sources.jpeg
    :height: 10cm
    :width: 20cm
    :align: center

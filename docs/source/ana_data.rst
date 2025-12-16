@@ -14,13 +14,13 @@ ANA gauges stations
 
 Introdução
 ==========
-Esta documentação descreve tecnicamente como são obtidos, processados e estruturados os dados cadastrais das estações hidrológicas disponibilizadas pela Agência Nacional de Águas e Saneamento Básico (ANA). As informações são acessadas diretamente pela API pública do sistema ServiceANA, disponível em ServiceANA <https://telemetriaws1.ana.gov.br/ServiceANA.asmx>_ , por meio da seção HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>_. O algoritmo desenvolvido envia solicitações HTTP GET, interpreta o retorno em XML, padroniza campos, corrige inconsistências e organiza os dados em arquivos estruturados, garantindo repetibilidade e qualidade no tratamento tanto de estações fluviométricas (nível/descarga) quanto pluviométricas (chuva).
+Esta documentação descreve tecnicamente como são obtidos, processados e estruturados os dados cadastrais das estações hidrológicas disponibilizadas pela Agência Nacional de Águas e Saneamento Básico (ANA). As informações são acessadas diretamente pela API pública do sistema ServiceANA, disponível em `ServiceANA <https://telemetriaws1.ana.gov.br/ServiceANA.asmx>`_ , por meio da seção `HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_ . O algoritmo desenvolvido envia solicitações HTTP GET, interpreta o retorno em XML, padroniza campos, corrige inconsistências e organiza os dados em arquivos estruturados, garantindo repetibilidade e qualidade no tratamento tanto de estações fluviométricas (nível/descarga) quanto pluviométricas (chuva).
 Para realizar o download das informações detalhadas de cada estação, foi necessário primeiro identificar todas as estações registradas no sistema, uma vez que o código individual de cada uma é obrigatório nas requisições. Assim, antes de coletar os dados específicos dos dois tipos de estação considerados, o script executa uma varredura inicial do inventário completo por meio de requisições automatizadas, aplicando técnicas de extração e leitura programática do conteúdo retornado pela API. Esse levantamento prévio sustenta todo o fluxo de obtenção dos dados cadastrais.
 
 
 List of stations registered by the ANA
 ======================================
-No sistema da ANA constam registros de diferentes categorias de estações hidrometeorológicas, incluindo Estações Telemétricas — automáticas, com transmissão remota de dados em tempo real — e Estações Convencionais, que dependem de medições realizadas manualmente por observadores e técnicos em hidrologia. Para identificar todas as estações disponíveis, o levantamento baseou-se na listagem completa fornecida pela seção HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>_, que reúne tanto estações convencionais quanto telemétricas e centraliza as informações cadastrais necessárias para o processamento dos dados.
+No sistema da ANA constam registros de diferentes categorias de estações hidrometeorológicas, incluindo Estações Telemétricas — automáticas, com transmissão remota de dados em tempo real — e Estações Convencionais, que dependem de medições realizadas manualmente por observadores e técnicos em hidrologia. Para identificar todas as estações disponíveis, o levantamento baseou-se na listagem completa fornecida pela seção `HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, que reúne tanto estações convencionais quanto telemétricas e centraliza as informações cadastrais necessárias para o processamento dos dados.
 Além de fornecer a relação completa de estações, o HidroInventário disponibiliza atributos que permitem calcular a data de início de operação de cada unidade, informação essencial para definir quais estações possuem histórico mínimo de funcionamento e, portanto, têm seus dados organizados e preparados para tentativas posteriores de download. Esse pré-processamento garante que apenas estações com tempo de operação suficiente sejam consideradas no fluxo de coleta.
 .. note::
 Foram consideradas apenas estações com início de operação até 01/01/2024, garantindo que cada uma possua pelo menos um ano potencial de dados completos, considerando 31/12/2024 como data final de referência.
@@ -52,7 +52,7 @@ Para garantir estabilidade nas consultas, o algoritmo realiza as requisições p
 Configurações e funções auxiliares
 ==================================
 
-Antes da coleta, o script define o endpoint <https://telemetriaws1.ana.gov.br/ServiceANA.asmx/HidroInventario>_ oficial da ANA, além de um conjunto de funções auxiliares que tratam o conteúdo retornado. Entre elas estão rotinas para extrair valores de tags XML, converter números que chegam como texto, interpretar datas em diferentes formatos e corrigir coordenadas que chegam sem ponto decimal. Essas funções formam a base do pipeline, permitindo que os dados sejam tratados de forma estável e automatizada independentemente da variação no formato das respostas fornecidas pela API.
+Antes da coleta, o script define o `endpoint <https://telemetriaws1.ana.gov.br/ServiceANA.asmx/HidroInventario>`_ oficial da ANA, além de um conjunto de funções auxiliares que tratam o conteúdo retornado. Entre elas estão rotinas para extrair valores de tags XML, converter números que chegam como texto, interpretar datas em diferentes formatos e corrigir coordenadas que chegam sem ponto decimal. Essas funções formam a base do pipeline, permitindo que os dados sejam tratados de forma estável e automatizada independentemente da variação no formato das respostas fornecidas pela API.
 
 
 
@@ -60,7 +60,7 @@ Campos cadastrais do inventário
 ================================
 
 O inventário fornece, para cada estação, um conjunto fixo de campos cadastrais que representam metadados operacionais: localização (UF, município, bacia hidrográfica), atributos da operadora, tipos de instrumentos instalados, datas de instalação e remoção, estado operacional e outros. O script mantém uma lista única com todos esses nomes de campos, garantindo que cada estação seja registrada com a mesma estrutura e que diferentes consultas retornem tabelas compatíveis entre si.
-A listagem completa de campos cadastrais disponíveis para ambos os tipos de estações da ANA é disponibilizada através do arquivo [listagem_cadastral_completa].
+A listagem completa de campos cadastrais disponíveis para ambos os tipos de estações da ANA é disponibilizada através do arquivo **[listagem_cadastral_completa]**.
 
 
 
@@ -159,6 +159,29 @@ Fluxograma do script de obtenção dos dados cadastrais
 
 Os quatro diagramas apresentados a seguir oferecem uma visão estruturada e progressiva do funcionamento do script. Cada um deles detalha uma parte específica do processo, permitindo que o leitor compreenda separadamente as etapas de configuração, requisição de dados, processamento e execução do pipeline principal. No último diagrama, essas partes são integradas em uma visão geral, facilitando entender como todos os componentes trabalham em conjunto.
 As cores utilizadas nos diagramas representam conjuntos de etapas com funções semelhantes dentro do pipeline: configurações iniciais, operações de requisição e parsing, rotinas de validação e processamento dos dados, e ações de exportação. Dessa forma, a mesma cor aparece em diferentes diagramas sempre que se refere ao mesmo conjunto de tarefas, ajudando o leitor a identificar rapidamente a categoria de cada etapa e a acompanhar o fluxo completo de obtenção e tratamento dos dados cadastrais da ANA.
+
+
+
+.. image:: _static/images/ana_img/flow_1_config.png
+  :width: 600
+  :alt: Settings and functions
+
+
+.. image:: _static/images/ana_img/flow_2_request.png
+  :width: 600
+  :alt: Request and parsing
+
+
+.. image:: _static/images/ana_img/flow_3_validation.png
+  :width: 600
+  :alt: Data validation and cleansing
+
+
+.. image:: _static/images/ana_img/flow_4_pipeline.png
+  :width: 600
+  :alt: Main pipeline
+
+
 
 .. mermaid::
    :caption: Configurações
@@ -360,7 +383,7 @@ Spatial distribution of ANA's gauges stations
 The following figure shows the spatial distribution of the stations registered in the ANA system according to the agency responsible.
 
 
-.. image:: _static/images/grafico_estacoes_responsaveis.png
+.. image:: _static/images/ana_img/grafico_estacoes_responsaveis.png
   :width: 600
   :alt: ANA gauges stations
 
