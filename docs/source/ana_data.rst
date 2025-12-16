@@ -184,8 +184,7 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
 
 
 .. mermaid::
-   :caption: Configurações
-   flowchart LR
+  flowchart LR
     subgraph S1["Configurações e funções"]
       A1["Carregar pacotes"]:::configCode
       A2["Definir constantes da API"]:::configCode
@@ -200,11 +199,9 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
       B1 --> B2 --> B3
     end
 
-
     %% Conexões entre secoes via node
-      %%S1 --> S2
-      A3 --> B1
-
+    %%S1 --> S2
+    A3 --> B1
 
     %% Paleta de cores
     classDef configCode fill:#fff3e0,stroke:#ef6c00;
@@ -214,8 +211,7 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
 
 
 .. mermaid::
-   :caption: Requisição via função
-   flowchart LR
+  flowchart LR
     subgraph S3["Requisição e parsing"]
       C0["Validar tipo de estação (1 ou 2)"]:::reqCode
       C1["Montar requisição HTTP com parâmetros"]:::reqCode
@@ -249,10 +245,8 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
-
 .. mermaid::
-   :caption: Validação e limpeza de dados
-   flowchart LR
+  flowchart LR
     subgraph S4["Limpeza e tipagem"]
       D1["Corrigir coordenadas geográficas"]:::validacao
       D2["Converter números e datas"]:::validacao
@@ -280,12 +274,12 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
     end
 
     %% Conexões entre secoes via node
-      %%S4 --> S5
-      D3 --> E1
-      %%S5 --> S6
-      E3 --> F1
-      %%S6 --> S7
-      F2 --> G1
+    %%S4 --> S5
+    D3 --> E1
+    %%S5 --> S6
+    E3 --> F1
+    %%S6 --> S7
+    F2 --> G1
 
     %% Paleta de cores
     classDef configCode fill:#fff3e0,stroke:#ef6c00;
@@ -294,10 +288,8 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
-
 .. mermaid::
-   :caption: Funcionamento do código
-   flowchart LR
+  flowchart LR
     subgraph S8["Pipeline principal"]
       H0["Definir tipos de estação e UFs de interesse"]:::configCode
       H1{"Consulta por UF"}:::reqCode
@@ -334,7 +326,6 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
-
 
 
 Descriptive information about listed gauges stations
