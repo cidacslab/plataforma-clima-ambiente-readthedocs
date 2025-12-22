@@ -86,13 +86,17 @@ The returned data include multiple columns indicating the start and end times of
 To derive the start and end dates of operation for each station type, the following variables were used:
 
 - Streamflow stations (Type 1):
+
   - Start dates:
+
     - ``PeriodoEscalaInicio``
     - ``PeriodoRegistradorNivelInicio``
     - ``PeriodoDescLiquidaInicio``
     - ``PeriodoQualAguaInicio``
     - ``PeriodoTelemetricaInicio``
+
   - End dates:
+
     - ``PeriodoEscalaFim``
     - ``PeriodoRegistradorNivelFim``
     - ``PeriodoDescLiquidaFim``
@@ -100,18 +104,20 @@ To derive the start and end dates of operation for each station type, the follow
     - ``PeriodoTelemetricaFim``
 
 - Rainfall stations (Type 2):
+
   - Start dates:
+
     - ``PeriodoPluviometroInicio``
     - ``PeriodoRegistradorChuvaInicio``
     - ``PeriodoTelemetricaInicio``
     - ``PeriodoClimatologicaInicio``
+
   - End dates:
+
     - ``PeriodoPluviometroFim``
     - ``PeriodoRegistradorChuvaFim``
     - ``PeriodoTelemetricaFim``
     - ``PeriodoClimatologicaFim``
-
-
 
 Inventory request and parsing
 =============================
