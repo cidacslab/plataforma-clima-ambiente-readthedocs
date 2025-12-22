@@ -1,14 +1,15 @@
 section p {
-    text-align: justify;
+  text-align: justify;
 }
 
 /* Cor de fundo da barra do logo / nome do projeto */
 .wy-side-nav-search {
-  background-color: #f6e4d1 !important;  /* escolha sua cor */
+  background-color: #f6e4d1 !important;
+  /* escolha sua cor */
 }
 
 /* Ajustar cor do texto do nome do projeto para contraste */
-.wy-side-nav-search > a {
+.wy-side-nav-search>a {
   color: #76140c !important;
 }
 
@@ -20,7 +21,7 @@ div.wy-side-nav-search {
 }
 
 /* texto do nome do projeto */
-div.wy-side-nav-search > a {
+div.wy-side-nav-search>a {
   color: #76140c !important;
 }
 
@@ -30,11 +31,8 @@ div.wy-side-nav-search a img {
 }
 
 
-
 /** Set Mermaid Diagrams to 100% width of screen by default */
-
-.mermaid svg { 
-  max-width: 100%; 
+.mermaid svg {
+  max-width: 100%;
   height: auto;
 }
-
