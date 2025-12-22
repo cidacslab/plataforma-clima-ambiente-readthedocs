@@ -12,153 +12,186 @@ Updated: 2025-12-10
 ANA gauges stations
 *******************
 
-Introdução
-==========
-Esta documentação descreve tecnicamente como são obtidos, processados e estruturados os dados cadastrais das estações hidrológicas disponibilizadas pela Agência Nacional de Águas e Saneamento Básico (ANA). As informações são acessadas diretamente pela API pública do sistema ServiceANA, disponível em `ServiceANA <https://telemetriaws1.ana.gov.br/ServiceANA.asmx>`_ , por meio da seção `HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_ . O algoritmo desenvolvido envia solicitações HTTP GET, interpreta o retorno em XML, padroniza campos, corrige inconsistências e organiza os dados em arquivos estruturados, garantindo repetibilidade e qualidade no tratamento tanto de estações fluviométricas (nível/descarga) quanto pluviométricas (chuva).
-Para realizar o download das informações detalhadas de cada estação, foi necessário primeiro identificar todas as estações registradas no sistema, uma vez que o código individual de cada uma é obrigatório nas requisições. Assim, antes de coletar os dados específicos dos dois tipos de estação considerados, o script executa uma varredura inicial do inventário completo por meio de requisições automatizadas, aplicando técnicas de extração e leitura programática do conteúdo retornado pela API. Esse levantamento prévio sustenta todo o fluxo de obtenção dos dados cadastrais.
+Introduction
+============
+
+This documentation technically describes how the registration data of hydrological stations made available by the National Water and Basic Sanitation Agency (ANA) are obtained, processed, and structured. The information is accessed directly through the public API of the ServiceANA system, available in `ServiceANA <https://telemetriaws1.ana.gov.br/ServiceANA.asmx>`_, through the `HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_ section. The developed algorithm sends HTTP GET requests, interprets the XML response, standardizes fields, corrects inconsistencies, and organizes the data into structured files, ensuring repeatability and data quality in the processing of both streamflow stations (stage/discharge) and rainfall stations (precipitation).
+
+To download the detailed information for each station, it was first necessary to identify all stations registered in the system, since the individual code of each station is mandatory in the requests. Therefore, before collecting the specific data for the two station types considered, the script performs an initial scan of the complete inventory through automated requests, applying techniques for extraction and programmatic reading of the content returned by the API. This preliminary survey underpins the entire workflow for obtaining the registration data.
+
 
 
 List of stations registered by the ANA
 ======================================
-No sistema da ANA constam registros de diferentes categorias de estações hidrometeorológicas, incluindo Estações Telemétricas — automáticas, com transmissão remota de dados em tempo real — e Estações Convencionais, que dependem de medições realizadas manualmente por observadores e técnicos em hidrologia. Para identificar todas as estações disponíveis, o levantamento baseou-se na listagem completa fornecida pela seção `HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, que reúne tanto estações convencionais quanto telemétricas e centraliza as informações cadastrais necessárias para o processamento dos dados.
-Além de fornecer a relação completa de estações, o HidroInventário disponibiliza atributos que permitem calcular a data de início de operação de cada unidade, informação essencial para definir quais estações possuem histórico mínimo de funcionamento e, portanto, têm seus dados organizados e preparados para tentativas posteriores de download. Esse pré-processamento garante que apenas estações com tempo de operação suficiente sejam consideradas no fluxo de coleta.
+
+The ANA system contains records of different categories of hydrometeorological stations, including Telemetric Stations — automatic stations with real-time remote data transmission — and Conventional Stations, which rely on manual measurements performed by observers and hydrology technicians. To identify all available stations, the survey was based on the complete listing provided by the `HidroInventário <https://telemetriaws1.ana.gov.br/ServiceANA.asmx?op=HidroInventario>`_, which includes both conventional and telemetric stations and centralizes the registration information required for data processing.
+
+In addition to providing the complete list of stations, the HidroInventário supplies attributes that allow the calculation of the start date of operation for each unit, an essential piece of information to determine which stations have a minimum operational history and, therefore, have their data organized and prepared for subsequent download attempts. This pre-processing step ensures that only stations with sufficient operational time are considered in the data collection workflow.
+
 .. note::
-Foram consideradas apenas estações com início de operação até 01/01/2024, garantindo que cada uma possua pelo menos um ano potencial de dados completos, considerando 31/12/2024 como data final de referência.
-
-
-Sintaxe e requisições
----------------------
-
-O acesso ao inventário de estações ocorre por meio de requisições HTTP GET enviadas ao *endpoint*  **HidroInventario**. Cada requisição recebe parâmetros que funcionam como filtros opcionais: quando um deles é deixado em branco, o serviço retorna todas as estações compatíveis. O script automatiza a construção dessas URLs, controla a repetição em caso de falhas, aplica pausas para evitar sobrecarga no servidor e pode realizar tanto consultas nacionais quanto consultas por UF. Os principais parâmetros aceitos são:
-
-- ``codEstDE``: Código inicial da faixa de estações (8 dígitos).
-- ``codEstATE``: Código final da faixa de estações (8 dígitos).
-- ``tpEst``: Tipo da estação (``1`` = fluviométrica; ``2`` = pluviométrica).
-- ``nmEst``: Nome da estação.
-- ``nmRio``: Nome do rio monitorado.
-- ``codSubBacia``: Código da sub-bacia hidrográfica.
-- ``codBacia``: Código da bacia hidrográfica.
-- ``nmMunicipio``: Nome do município.
-- ``nmEstado``: Nome do estado.
-- ``sgResp``: Sigla do órgão responsável.
-- ``sgOper``: Sigla do órgão operador.
-- ``telemetrica``: Indica telemetria ativa (``1`` = sim; ``0`` = não).
-
-Esses filtros são a base para reconstruir o inventário nacional com precisão e flexibilidade.
-Para garantir estabilidade nas consultas, o algoritmo realiza as requisições por UF, utilizando o parâmetro ``nmEstado`` escrito por extenso e com a grafia exata registrada pela ANA (por exemplo, BAHIA). A essa informação soma-se o tipo de estação desejado (``tpEst`` = 1 ou 2), de modo que o serviço retorna todas as estações daquele tipo na UF solicitada. Essa estratégia evita travamentos e respostas vazias por inconsistências na API e permite coletar o inventário completo de maneira segura e sistemática.
+Only stations with a start of operation on or before 01/01/2024 were considered, ensuring that each station has at least one potential year of complete data, taking 31/12/2024 as the final reference date.
 
 
 
-Configurações e funções auxiliares
-==================================
+Syntax and requests
+-------------------
 
-Antes da coleta, o script define o `endpoint <https://telemetriaws1.ana.gov.br/ServiceANA.asmx/HidroInventario>`_ oficial da ANA, além de um conjunto de funções auxiliares que tratam o conteúdo retornado. Entre elas estão rotinas para extrair valores de tags XML, converter números que chegam como texto, interpretar datas em diferentes formatos e corrigir coordenadas que chegam sem ponto decimal. Essas funções formam a base do pipeline, permitindo que os dados sejam tratados de forma estável e automatizada independentemente da variação no formato das respostas fornecidas pela API.
+Access to the station inventory is performed through HTTP GET requests sent to the **HidroInventario** *endpoint*. Each request accepts parameters that act as optional filters: when a parameter is left blank, the service returns all compatible stations. The script automates the construction of these URLs, handles retries in case of failures, applies pauses to avoid server overload, and can perform both nationwide queries and queries by state (UF). The main accepted parameters are:
+
+- ``codEstDE``: Initial code of the station range (8 digits).
+- ``codEstATE``: Final code of the station range (8 digits).
+- ``tpEst``: Station type (``1`` = streamflow; ``2`` = rainfall).
+- ``nmEst``: Station name.
+- ``nmRio``: Name of the monitored river.
+- ``codSubBacia``: Sub-basin code.
+- ``codBacia``: Basin code.
+- ``nmMunicipio``: Municipality name.
+- ``nmEstado``: State name.
+- ``sgResp``: Acronym of the responsible agency.
+- ``sgOper``: Acronym of the operating agency.
+- ``telemetrica``: Indicates active telemetry (``1`` = yes; ``0`` = no).
+
+These filters form the basis for reconstructing the national inventory with accuracy and flexibility.
+
+To ensure query stability, the algorithm performs requests by state (UF), using the ``nmEstado`` parameter written in full and with the exact spelling registered by ANA (for example, BAHIA). This information is combined with the desired station type (``tpEst`` = 1 or 2), so that the service returns all stations of that type within the requested state. This strategy avoids freezes and empty responses caused by API inconsistencies and allows the complete inventory to be collected in a safe and systematic manner.
 
 
 
-Campos cadastrais do inventário
+Configuration and auxiliary functions
+=====================================
+
+Before data collection, the script defines the official ANA `endpoint <https://telemetriaws1.ana.gov.br/ServiceANA.asmx/HidroInventario>`_, along with a set of auxiliary functions responsible for handling the returned content. These include routines to extract values from XML tags, convert numbers received as text, parse dates in different formats, and correct coordinates that are returned without a decimal point or that present values outside the limits of Brazilian territory. These functions form the foundation of the pipeline, allowing the data to be processed in a stable and automated manner regardless of variations in the response formats provided by the API.
+
+
+
+
+
+Inventory registration fields
+=============================
+
+The inventory provides, for each station, a fixed set of registration fields representing operational metadata, including location (state, municipality, hydrographic basin), operator attributes, types of installed instruments, installation and removal dates, operational status, and other related information. The script maintains a single, consolidated list of all these field names, ensuring that each station is recorded using the same structure and that different queries return mutually compatible tables.
+
+The complete list of registration fields available for both types of ANA stations is provided in a ``.csv`` file containing the data descriptions supplied by ANA.
+
+.. note::
+The data dictionary for the variables present in the complete ANA registration listing will be made available at a later stage, after confirmation with ANA regarding the description of certain variables for which no documentation could be identified.
+
+
+
+Candidate start and end dates of operation
+==========================================
+
+The returned data include multiple columns indicating the start and end times of operation for specific instruments (rain gauges, water level recorders, telemetric sensors, among others). Since these components may be installed at different times, the script identifies, for each station type, which columns should be taken into account. It then computes the earliest available date as the station start date and the latest available date as the end date. This procedure standardizes the station's operational period even when ANA does not provide this information in a consolidated form.
+
+To derive the start and end dates of operation for each station type, the following variables were used:
+
+- Streamflow stations (Type 1):
+  - Start dates:
+    - ``PeriodoEscalaInicio``
+    - ``PeriodoRegistradorNivelInicio``
+    - ``PeriodoDescLiquidaInicio``
+    - ``PeriodoQualAguaInicio``
+    - ``PeriodoTelemetricaInicio``
+  - End dates:
+    - ``PeriodoEscalaFim``
+    - ``PeriodoRegistradorNivelFim``
+    - ``PeriodoDescLiquidaFim``
+    - ``PeriodoQualAguaFim``
+    - ``PeriodoTelemetricaFim``
+
+- Rainfall stations (Type 2):
+  - Start dates:
+    - ``PeriodoPluviometroInicio``
+    - ``PeriodoRegistradorChuvaInicio``
+    - ``PeriodoTelemetricaInicio``
+    - ``PeriodoClimatologicaInicio``
+  - End dates:
+    - ``PeriodoPluviometroFim``
+    - ``PeriodoRegistradorChuvaFim``
+    - ``PeriodoTelemetricaFim``
+    - ``PeriodoClimatologicaFim``
+
+
+
+Inventory request and parsing
+=============================
+
+The collection of registration data begins by building an HTTP GET request to the ``HidroInventario`` endpoint. The function first validates the requested station type and then constructs the full URL, including all parameters supported by the service. Only the required parameters (such as ``tpEst`` and ``nmEstado``) are populated, while the remaining ones are left blank to avoid unintended filtering. The request also includes a user identifier and automatic retry mechanisms with an increasing backoff interval, ensuring stability even in the presence of temporary failures on the ANA server.
+
+After submitting the request, the function checks the HTTP status code and, if the response is not successful, logs the error, optionally applies a pause, and returns an empty table. When the response is valid, the XML content is parsed, namespaces are removed, and the function searches for an ``<Error>`` node; if a specific error message is present, it is displayed and the processing for that state (UF) is safely interrupted. Next, the function identifies all ``<Table>`` nodes—each representing a station—and converts their fields into a tabular structure using the fixed list of attributes provided by the inventory. Finally, the received records are consolidated into a raw table and a ``tipo_estacao`` column is added to indicate the queried station type, preparing the dataset for the next cleaning and standardization steps.
+
+
+
+Data cleaning and type casting
+==============================
+
+After extracting the station registration data, the script applies a standardization step to ensure consistency and usability of the dataset. Initially, geographic coordinates are processed: latitude and longitude values received without a decimal point are corrected and then converted to numeric values. In parallel, fields representing operational codes or indicators are cast to integers, ensuring that such information does not remain stored as text.
+
+Next, all columns related to operational periods—those starting with ``Periodo`` and ending with ``Inicio`` or ``Fim`` are converted to date format, while administrative columns such as ``UltimaAtualizacao``, ``DataIns``, and ``DataAlt`` are converted to date-time values. Finally, textual fields undergo a cleaning process that removes trailing and leading whitespace and replaces empty strings with missing values. This structured routine ensures that all data types are coherent and that the resulting table is suitable for subsequent processes, such as date calculations, deduplication, and geographic validation.
+
+
+
+
+Start and end dates of operation
 ================================
 
-O inventário fornece, para cada estação, um conjunto fixo de campos cadastrais que representam metadados operacionais: localização (UF, município, bacia hidrográfica), atributos da operadora, tipos de instrumentos instalados, datas de instalação e remoção, estado operacional e outros. O script mantém uma lista única com todos esses nomes de campos, garantindo que cada estação seja registrada com a mesma estrutura e que diferentes consultas retornem tabelas compatíveis entre si.
-A listagem completa de campos cadastrais disponíveis para ambos os tipos de estações da ANA é disponibilizada através do arquivo **[listagem_cadastral_completa]**.
+After standardizing the date columns, the script consolidates the operational period of each station through two distinct routines. The function responsible for determining the start of operation identifies, for each station type, the set of potentially relevant columns (for example, start dates of rain gauges, water level recorders, or telemetry systems) and computes the earliest valid date among them, assigning the result to the ``DataInicioOperacao`` column. This procedure ensures that the station start date represents the earliest moment at which any associated instrument began recording data.
+
+Complementarily, the end-of-operation calculation uses the corresponding candidate columns related to instrument decommissioning and selects the latest available date for each station, resulting in the ``DataFimOperacao`` column. This process is performed separately for each station type, respecting its specific set of fields. The outcome is two consolidated columns that describe the historical operational interval of the station, serving as a reference for temporal filtering and for analyses that depend on the duration or continuity of measurements.
+
+This procedure is primarily intended to support the data download process by ensuring that only stations operating within the climatological normal period of interest are considered. However, cases were observed in which stations present a computable value for the ``DataFimOperacao`` variable while the ``Operando`` variable indicates a value of ``1``, characterizing an inconsistency in the registration data. Therefore, only the ``DataInicioOperacao`` column is used as support for filtering stations that began operation within each climatological normal period when performing data downloads.
 
 
 
-Datas candidatas de início e fim de operação
-============================================
-
-Os dados retornados incluem várias colunas que indicam momentos de início e fim de operação de instrumentos específicos (pluviômetros, registradores de nível, sensores telemétricos etc.). Como esses componentes podem ser instalados em momentos diferentes, o script identifica, para cada tipo de estação, quais colunas devem ser consideradas. Em seguida, calcula a menor data disponível como início da estação e a maior data como fim. Esse procedimento padroniza o período operacional da estação mesmo quando a ANA não fornece essa informação de forma consolidada.
-
-Para criação das datas de início e fim de operação de cada tipo de estação foram utilizadas as seguintes variáveis:
-
--	Estações fluviométricas (Tipo 1):
-
-  -	``PeriodoEscalaInicio``
-  -	``PeriodoRegistradorNivelInicio``
-  -	``PeriodoDescLiquidaInicio``
-  -	``PeriodoQualAguaInicio``
-  -	``PeriodoTelemetricaInicio``
-
--	Estações pluviométricas (Tipo 2):
-
-  -	``PeriodoPluviometroInicio``
-  -	``PeriodoRegistradorChuvaInicio``
-  -	``PeriodoTelemetricaInicio``
-  -	``PeriodoClimatologicaInicio``
-
-
-
-Requisição e parsing do inventário
-==================================
-
-A coleta dos dados cadastrais começa com a construção de uma requisição HTTP GET ao endpoint ``HidroInventario``. A função valida inicialmente o tipo de estação solicitado e então monta a URL completa incluindo todos os parâmetros exigidos pelo serviço, preenchendo apenas aqueles necessários (como ``tpEst`` e ``nmEstado``) e deixando os demais em branco para evitar filtragens indesejadas. A requisição utiliza ainda um identificador de usuário e mecanismos de repetição automática com tempo de espera crescente, garantindo estabilidade mesmo em casos de falhas temporárias no servidor da ANA.
-
-Após o envio do pedido, a função verifica o código de status HTTP e, caso a resposta não seja bem-sucedida, registra o erro, aplica uma pausa opcional e retorna uma tabela vazia. Quando o retorno é válido, o conteúdo XML é interpretado, os espaços de nomes são removidos e busca-se um nó ``<Error>``; se existir mensagem de erro específica, ela é exibida e o processamento daquela UF é interrompido com segurança. Em seguida, a função identifica todos os nós ``<Table>``, cada um representando uma estação, e converte seus campos para uma estrutura tabular usando a lista fixa de atributos fornecida pelo inventário. Ao final, os registros recebidos são reunidos em uma tabela bruta e é atribuída a coluna ``tipo_estacao`` para indicar o tipo consultado, preparando o conjunto para as próximas etapas de limpeza e padronização.
-
-
-
-Limpeza e tipagem dos dados
+Station-level deduplication
 ===========================
 
-Após a extração dos dados cadastrais de estações, o script aplica uma etapa de padronização que garante consistência e usabilidade ao conjunto de dados. Inicialmente, as coordenadas geográficas são tratadas: valores de latitude e longitude que chegam sem ponto decimal são corrigidos e, em seguida, convertidos para números reais. Em paralelo, campos que representam códigos ou indicadores operacionais são transformados em inteiros, assegurando que informações não permaneçam como texto.
+The ANA registration inventory may include multiple records for the same station, usually resulting from administrative revisions or updates performed at different points in time. To ensure that only the most up-to-date registration is retained, the script applies an ordering procedure based on administrative dates provided by ANA itself. Records are first grouped by station code and then prioritized according to the presence and recency of ``DataAlt``, ``DataIns``, and ``UltimaAtualizacao``, always favoring records in which these fields are populated and, among them, the most recent ones.
 
-Na sequência, todas as colunas relacionadas a períodos de operação — aquelas iniciadas por ``Periodo`` e finalizadas em ``Inicio`` ou ``Fim`` — são convertidas para o formato de data, enquanto colunas administrativas como ``UltimaAtualizacao``, ``DataIns`` e ``DataAlt`` são convertidas para datas e horários. Por fim, os campos textuais passam por limpeza, removendo espaços excedentes e substituindo cadeias vazias por valores ausentes. Essa rotina estruturada garante que todos os tipos de dado estejam coesos e que a tabela resultante seja adequada para processos posteriores, como cálculo de datas, deduplicação e validação geográfica.
-
-
-
-Datas de início e fim de operação
-=================================
-
-Após a padronização das colunas de datas, o script consolida o período operacional de cada estação por meio de duas rotinas distintas. A função responsável pelo início da operação identifica, para cada tipo de estação, o conjunto de colunas potencialmente relevantes (por exemplo, datas de início de pluviômetro, registrador de nível ou telemetria) e calcula a menor data válida entre elas, atribuindo o resultado à coluna ``DataInicioOperacao``. Esse procedimento assegura que o início da estação represente o momento mais antigo em que qualquer instrumento associado passou a registrar dados.
-
-De forma complementar, o cálculo do fim de operação utiliza as colunas candidatas correspondentes a encerramento de instrumentos e seleciona a maior data existente para cada estação, resultando em ``DataFimOperacao``. Essa busca é feita separadamente para cada tipo de estação, respeitando seu conjunto específico de campos. O produto são duas colunas consolidadas que descrevem o intervalo histórico de operação da estação, servindo como referência para filtragem temporal e para análises que dependem da duração ou continuidade das medições.
+After this ordering step, the algorithm selects only the first record for each station code, ensuring that each station is represented by a single consolidated entry. This process removes duplicates, prevents inconsistencies arising from outdated registration versions, and produces a coherent final dataset suitable for subsequent analyses and for integration with other components of the inventory.
 
 
 
-Deduplicação por estação
-========================
 
-O inventário cadastral da ANA pode incluir múltiplos registros para uma mesma estação, geralmente decorrentes de revisões administrativas ou atualizações realizadas em momentos distintos. Para garantir que apenas o cadastro mais atual seja preservado, o script aplica um procedimento de ordenação baseado em datas administrativas fornecidas pela própria ANA. Os registros são organizados por código da estação e, em seguida, priorizados de acordo com a presença e a recência de ``DataAlt``, ``DataIns`` e ``UltimaAtualizacao``, sempre mantendo primeiro os registros que possuem essas informações preenchidas e, dentro deles, os mais recentes.
+Geographic validation
+=====================
 
-Após essa ordenação, o algoritmo seleciona somente o primeiro registro de cada código, assegurando que cada estação permaneça representada por uma única entrada consolidada. Esse processo elimina duplicidades, evita inconsistências provenientes de versões antigas do cadastro e produz uma base final coerente, adequada para análises subsequentes e para integração com os demais componentes do inventário.
+Geographic validation ensures that the registered coordinates of the stations are consistent with the actual boundaries of Brazilian territory and with plausible elevation values. The implemented procedure identifies coordinates that fall outside the expected range, corrects straightforward cases, and flags situations in which the station location cannot be determined reliably. In addition, the script creates indicator variables that allow quick identification of stations with potential spatial inconsistencies. The following subsections detail the adopted criteria.
 
+Altitude validation
+-------------------
 
+The altitude reported for some stations may present values incompatible with real-world conditions, either due to data entry errors or registration issues. The algorithm applies three main rules:
 
-Validação geográfica
-====================
+1. Slightly negative altitudes (between –10 and 0 meters) are adjusted to 0, as they may represent minor measurement inaccuracies.
+2. Altitudes lower than –10 meters or higher than 3000 meters—above the highest point in Brazil—are considered invalid and replaced with ``NA``.
+3. Valid altitudes remain unchanged.
 
-A validação geográfica garante que as coordenadas cadastradas das estações estejam de acordo com os limites reais do território brasileiro e com valores altimétricos plausíveis. O procedimento implementado identifica coordenadas fora do intervalo esperado, corrige casos simples e sinaliza situações em que não é possível determinar a posição com confiabilidade. Além disso, o script cria variáveis indicadoras que permitem identificar rapidamente estações com possíveis inconsistências espaciais. As subseções a seguir detalham os critérios adotados.
+These rules allow common registration errors to be corrected without discarding potentially useful information.
 
-Validação de altitude
----------------------
-
-A altitude informada para algumas estações pode apresentar valores incompatíveis com condições reais, seja por erro de digitação ou falhas de registro. O algoritmo aplica três regras principais:
-
-1. Altitudes ligeiramente negativas (entre –10 e 0 metros) são ajustadas para 0, pois podem representar pequenas imprecisões de medição.
-2. Altitudes menores que –10 metros ou superiores a 3000 metros — acima do ponto mais elevado do Brasil — são consideradas inválidas e substituídas por ``NA``.
-3. Altitudes válidas permanecem inalteradas.
-
-Essas regras permitem corrigir erros comuns de cadastro sem descartar informações potencialmente úteis.
-
-Validação de latitude e longitude
+Latitude and longitude validation
 ---------------------------------
 
-Para verificar se uma estação está localizada dentro dos limites geográficos do Brasil, o script compara suas coordenadas com a faixa mínima e máxima conhecida: entre aproximadamente –33.75° e 5.27° de latitude e entre –74.00° e –28.83° de longitude. Caso uma coordenada esteja fora desse intervalo, a estação recebe uma indicação de origem suspeita. Essa avaliação gera duas colunas adicionais: ``lat_fora`` e ``lon_fora``, que assumem valor ``1`` quando a coordenada está fora dos limites e ``0`` caso contrário. Essas variáveis auxiliam na auditoria da base e permitem análises posteriores sobre possíveis inconsistências espaciais.
+To verify whether a station is located within the geographic boundaries of Brazil, the script compares its coordinates against the known minimum and maximum ranges: approximately between –33.75° and 5.27° latitude, and between –74.00° and –28.83° longitude. If a coordinate falls outside this range, the station is flagged as having a suspicious location. This assessment generates two additional columns, ``lat_fora`` and ``lon_fora``, which take the value ``1`` when the coordinate is outside the defined limits and ``0`` otherwise. These variables support dataset auditing and enable subsequent analyses of potential spatial inconsistencies.
 
 
-Pipeline principal de processamento
-===================================
 
-A função responsável pelo pipeline principal organiza e executa todas as etapas anteriores de forma integrada, para um ou mais tipos de estação. A partir dos parâmetros ``tipos`` (``"1"`` e/ou ``"2"``) e ``uf``, ela controla como as requisições são feitas: quando ``uf`` é ``NULL``, realiza uma única chamada nacional por tipo; quando recebe um vetor de UFs, faz uma requisição por estado, utilizando o nome por extenso e na grafia exata esperada pela ANA. Em cada iteração, os dados brutos retornados pelo ``HidroInventario`` são acumulados e combinados em uma única tabela por tipo de estação.
+Main processing pipeline
+========================
 
-Em seguida, o fluxo aplica em sequência as rotinas de pós-processamento: limpeza e tipagem dos campos, cálculo das datas consolidadas de início e fim de operação, deduplicação por código de estação e validação geográfica. Depois disso, é aplicado um filtro opcional com base em ``DataInicioOperacao`` (controlado por ``limite_inicio``), e são produzidos resumos do número de estações por UF, tanto antes quanto após o filtro temporal. Quando o parâmetro ``exportar`` é ativado e ``dir_export`` é informado, os dados filtrados são gravados em arquivos ``.parquet`` (com compressão gzip) e ``.xlsx``, com nomes diferenciados por tipo de estação. Por fim, a função retorna uma lista em que cada tipo contém o conjunto tratado, a versão filtrada e os respectivos resumos por UF, pronta para uso em análises ambientais, hidrológicas ou epidemiológicas.
+The function responsible for the main pipeline orchestrates and executes all preceding steps in an integrated manner for one or more station types. Based on the ``tipos`` (``"1"`` and/or ``"2"``) and ``uf`` parameters, it controls how requests are issued: when ``uf`` is ``NULL``, a single nationwide request is performed per station type; when a vector of UFs is provided, one request per state is executed, using the full state name with the exact spelling expected by ANA. In each iteration, the raw data returned by ``HidroInventario`` are accumulated and combined into a single table per station type.
+
+The workflow then sequentially applies the post-processing routines: data cleaning and type casting, calculation of consolidated start and end dates of operation, deduplication by station code, and geographic validation. After that, an optional filter based on ``DataInicioOperacao`` (controlled by ``limite_inicio``) is applied, and summaries of the number of stations per UF are generated, both before and after the temporal filter. When the ``exportar`` parameter is enabled and ``dir_export`` is provided, the filtered data are written to ``.parquet`` files (with gzip compression) and ``.xlsx`` files, with filenames differentiated by station type. Finally, the function returns a list in which each station type contains the fully processed dataset, the filtered version, and the corresponding summaries by UF, ready for use in environmental, hydrological, or epidemiological analyses.
 
 
-Fluxograma do script de obtenção dos dados cadastrais
-=====================================================
 
-Os quatro diagramas apresentados a seguir oferecem uma visão estruturada e progressiva do funcionamento do script. Cada um deles detalha uma parte específica do processo, permitindo que o leitor compreenda separadamente as etapas de configuração, requisição de dados, processamento e execução do pipeline principal. No último diagrama, essas partes são integradas em uma visão geral, facilitando entender como todos os componentes trabalham em conjunto.
-As cores utilizadas nos diagramas representam conjuntos de etapas com funções semelhantes dentro do pipeline: configurações iniciais, operações de requisição e parsing, rotinas de validação e processamento dos dados, e ações de exportação. Dessa forma, a mesma cor aparece em diferentes diagramas sempre que se refere ao mesmo conjunto de tarefas, ajudando o leitor a identificar rapidamente a categoria de cada etapa e a acompanhar o fluxo completo de obtenção e tratamento dos dados cadastrais da ANA.
+Script flowchart for station registration data retrieval
+========================================================
+
+The four diagrams presented below provide a structured and progressive view of how the script works. Each diagram details a specific part of the process, allowing the reader to understand, separately, the configuration steps, data requests, processing routines, and execution of the main pipeline. In the final diagram, these parts are integrated into an overview, making it easier to understand how all components work together.
+
+The colors used in the diagrams represent groups of steps with similar roles within the pipeline: initial configuration, request and parsing operations, data validation and processing routines, and export actions. As a result, the same color appears across different diagrams whenever it refers to the same group of tasks, helping the reader quickly identify the category of each step and follow the full workflow for retrieving and processing ANA registration data.
+
 
 
 .. mermaid::
@@ -308,47 +341,64 @@ As cores utilizadas nos diagramas representam conjuntos de etapas com funções 
 Descriptive information about listed gauges stations
 ====================================================
 
-[Update pending]
+Streamflow gauges stations
+--------------------------
 
-This section presents descriptive information on the single list of rain gauges registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
+This table presents descriptive information on the single list of streamflow gauges stations (type 1) registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
 
-
-+--------------------+-----------------+
-| Responsible agency | Frequency   (%) |
-+--------------------+-----------------+
-| 1. ANA             | 5113 (21.5%)    |
-+--------------------+-----------------+
-| 2. CEMADEN         | 2533 (10.6%)    |
-+--------------------+-----------------+
-| 3. DAEE-SP         | 1910 (8.0%)     |
-+--------------------+-----------------+
-| 4. SUDENE          | 1352 (5.7%)     |
-+--------------------+-----------------+
-| 5. IAT-PR          | 878  (3.7%)     |
-+--------------------+-----------------+
-| 6. INMET           | 827  (3.5%)     |
-+--------------------+-----------------+
-| 7. FUNCEME-CE      | 791  (3.3%)     |
-+--------------------+-----------------+
-| 8. DNOCS           | 640  (2.7%)     |
-+--------------------+-----------------+
-| 9. AESA-PB         | 319  (1.3%)     |
-+--------------------+-----------------+
-| 10. SEMA-RS        | 310  (1.3%)     |
-+--------------------+-----------------+
-| (745 others)       | 9119 (38.3%)    |
-+--------------------+-----------------+
+**[Update pending]**
 
 
-Of the 23,792 stations registered, 21.5% are under the responsibility of the ANA, while 10.6% are under the responsibility of CEMADEN (Disaster Monitoring Centre). INMET (the National Meteorological Institute) has 3.5 per cent of the stations registered in the ANA system. In addition to the 10 government agencies with the highest frequency of registered stations (61.7 per cent), there are another 745 (38.3 per cent) agencies with stations registered in the ANA system.
+Rainfall gauges stations
+------------------------
+
+This table presents descriptive information on the single list of rain gauges stations (type 2) registered in the ANA system. The following table provides values relating to the frequency of rain gauges according to the government agencies responsible.
+
++--------------------+-----------------+
+| Responsible agency | Frequency  (%)  |
++--------------------+-----------------+
+| 1. ANA             | 4126 (20.6%)    |
++--------------------+-----------------+
+| 2. CEMADEN         | 2533 (12.7%)    |
++--------------------+-----------------+
+| 3. SPÁGUAS-SP      | 1878 (9.4%)     |
++--------------------+-----------------+
+| 4. SUDENE          | 1348 (6.7%)     |
++--------------------+-----------------+
+| 5. IAT-PR          | 827  (4.1%)     |
++--------------------+-----------------+
+| 6. INMET           | 878  (4.1%)     |
++--------------------+-----------------+
+| 7. FUNCEME-CE      | 791  (4.0%)     |
++--------------------+-----------------+
+| 8. DNOCS           | 637  (3.2%)     |
++--------------------+-----------------+
+| 9. EMPARN-RN       | 398  (2.0%)     |
++--------------------+-----------------+
+| 10. DNOS           | 295  (1.5%)     |
++--------------------+-----------------+
+| (706 others)       | 6325 (31.7%)    |
++--------------------+-----------------+
+
+
+Of the 19985 stations registered com data de início de operação igual ou inferior a 01/01/2024, 20.6% estão sobre responsibility of the ANA, while 12.7% are under the responsibility of CEMADEN (Disaster Monitoring Centre). INMET (the National Meteorological Institute) has 4.1% of the stations registered in the ANA system. In addition to the 10 government agencies with the highest frequency of registered stations (68.3%), there are another 706 (31.7%) agencies with stations registered in the ANA system.
 
 
 Spatial distribution of ANA's gauges stations
 =============================================
 
-[Update pending]
+Streamflow gauges stations
+--------------------------
 
-The following figure shows the spatial distribution of the stations registered in the ANA system according to the agency responsible.
+**[Update pending]**
+
+
+Rainfall gauges stations
+------------------------
+
+**[Update pending]**
+
+The following figure shows the spatial distribution of the rainfall gauges stations registered in the ANA system according to the agency responsible.
 
 
 .. image:: _static/images/ana_img/grafico_estacoes_responsaveis.png
@@ -359,12 +409,11 @@ The following figure shows the spatial distribution of the stations registered i
 Although there are stations all over Brazil, their greatest concentration is on the east coast, where the largest cities are concentrated.
 
 
-
 **************************************
 Download data from ANA gauges stations
 **************************************
 
-[Update pending]
+**[Update pending]**
 
 Alternative data manual download
 ================================
@@ -382,12 +431,12 @@ The HidroWeb system also informs about the possibility of API access. However, u
 Data Quality Index (DQI)
 ========================
 
-[Update pending]
+**[Update pending]**
 
 Limitations of ANA gauges dataset
 =================================
 
-[Update pending]
+**[Update pending]**
 
 
 
