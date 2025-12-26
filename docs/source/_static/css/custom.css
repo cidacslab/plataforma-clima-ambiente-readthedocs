@@ -32,7 +32,28 @@ div.wy-side-nav-search a img {
 
 
 /** Set Mermaid Diagrams to 100% width of screen by default */
-.mermaid svg {
-  max-width: 100%;
-  height: auto;
+
+/* Remove caps and allow Mermaid SVG to really scale */
+div.mermaid svg {
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  /* <- remove limite */
+}
+
+/* Big container for svg */
+div.mermaid {
+  width: min(1400px, 100%);
+  margin: 0 auto 24px auto;
+}
+
+
+/* Controla a opacidade das setas (linhas e pontas) */
+.mermaid .edgePath path {
+  stroke-opacity: 0.45;
+}
+
+/* Controla a opacidade das pontas de seta */
+.mermaid .edgePath marker path {
+  fill-opacity: 0.45;
 }

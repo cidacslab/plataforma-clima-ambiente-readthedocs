@@ -2,5 +2,6 @@ Teste Mermaid
 =============
 
 .. mermaid::
+
    flowchart LR
-      A --> B
+     A --> B

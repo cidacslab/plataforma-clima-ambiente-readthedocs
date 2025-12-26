@@ -1,0 +1,140 @@
+.. mermaid::
+
+   flowchart LR
+     subgraph S1["Configuration and Functions"]
+       A1["Load packages"]:::configCode
+       A2["Define API constants"]:::configCode
+       A3["Define helper and utility functions"]:::configCode
+       A1 --> A2 --> A3
+     end
+
+     subgraph S2["Syntax and Registry Data"]
+       B1["Define file names by station type"]:::configCode
+       B2["Map inventory registry fields"]:::configCode
+       B3["Define columns for operation date calculations"]:::configCode
+       B1 --> B2 --> B3
+     end
+
+     %% Connections between sections via node
+     A3 --> B1
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+
+
+.. mermaid::
+
+   flowchart LR
+     subgraph S3["Request Handling and Parsing"]
+       C0["Validate station type (1 or 2)"]:::reqCode
+       C1["Build HTTP request with parameters"]:::reqCode
+       C2{"HTTP status 200?"}:::reqCode
+         C2c1["Print HTTP failure and return empty table"]:::reqCode
+         C2c2["Read XML and remove namespaces"]:::reqCode
+       C3{"Error node exists?"}:::reqCode
+         C3c1["Print error message and return empty table"]:::reqCode
+         C3c2["Locate Table nodes"]:::reqCode
+       C4{"Table nodes found?"}:::reqCode
+         C4c1["Print warning for state with no data and return empty table"]:::reqCode
+       C5["Extract stations and build raw table"]:::reqCode
+
+       C0 --> C1 --> C2
+       C2 -- "No" --> C2c1
+       C2 -- "Yes" --> C2c2
+       C2c2 --> C3
+       C3 -- "Yes" --> C3c1
+       C3 -- "No" --> C3c2
+       C3c2 --> C4
+       C4 -- "No" --> C4c1
+       C4 -- "Yes" --> C5
+     end
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+
+
+.. mermaid::
+
+   flowchart LR
+     subgraph S4["Data Cleaning and Typing"]
+       D1["Fix geographic coordinates"]:::validacao
+       D2["Convert numeric values and dates"]:::validacao
+       D3["Standardize text fields and codes"]:::validacao
+       D1 --> D2 --> D3
+     end
+
+     subgraph S5["Operation Dates"]
+       E1["Select period columns by type"]:::validacao
+       E2["Calculate DataInicioOperacao"]:::validacao
+       E3["Calculate DataFimOperacao"]:::validacao
+       E1 --> E2 --> E3
+     end
+
+     subgraph S6["Deduplication"]
+       F1["Sort by administrative dates"]:::validacao
+       F2["Keep most recent registry per station code"]:::validacao
+       F1 --> F2
+     end
+
+     subgraph S7["Geographic Validation"]
+       G1["Adjust altitude outside acceptable range"]:::validacao
+       G2["Flag latitudes and longitudes outside Brazil"]:::validacao
+       G1 --> G2
+     end
+
+     %% Connections between sections
+     D3 --> E1
+     E3 --> F1
+     F2 --> G1
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+
+
+.. mermaid::
+
+   flowchart LR
+     subgraph S8["Main Pipeline"]
+       H0["Define station types and target states"]:::configCode
+       H1{"Query by state"}:::reqCode
+         H1h1["Query by iterating over station type and state"]:::reqCode
+         H1h2["Query all states for a given station type in a single request"]:::reqCode
+       H2["Apply cleaning, date calculation, deduplication and validation"]:::validacao
+       H3["Apply filter by DataInicioOperacao"]:::exportacao
+       H4["Generate station summaries by state"]:::exportacao
+       H5{"Export filtered stations?"}:::exportacao
+         H5h1["Export station list to .parquet and .xlsx"]:::exportacao
+         H5h2["Export station summary by state to .xlsx"]:::exportacao
+       H6["Store results in final list"]
+
+       %% Internal connections
+       H0 --> H1
+       H1 -- "Yes" --> H1h1 --> H2
+       H1 -- "No" --> H1h2 --> H2
+       H2 --> H3 --> H4 --> H5
+       H5 -- "Yes" --> H5h1 --> H5h2
+       H5 -- "No" --> H6
+     end
+
+     %% Legend subgraph
+     subgraph LEG["Legend"]
+       L1["Configuration"]:::configCode
+       L2["Requests and Parsing"]:::reqCode
+       L3["Validation and Processing"]:::validacao
+       L4["Export"]:::exportacao
+     end
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;

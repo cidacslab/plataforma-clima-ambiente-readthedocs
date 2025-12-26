@@ -14,14 +14,14 @@ import os
 import shlex
 
 # -- General configuration
-#sphinx_mermaid
+#'sphinxmermaid'
 extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinxmermaid'
+    'sphinxcontrib.mermaid'
 ]
 
 intersphinx_mapping = {
@@ -36,6 +36,27 @@ templates_path = ['_templates']
 html_static_path = ['_static']
 
 # -- Options for diagrams output
+
+#mermaid_output_format = "svg"
+mermaid_params = ["-p", "puppeteer-config.json"]
+
+# Use list form (mais compativel)
+#mermaid_cmd = ["npx", "--no-install", "mmdc"]
+
+mermaid_init_js = """
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "default",
+  flowchart: {
+    useMaxWidth: true,
+    nodeSpacing: 70,
+    rankSpacing: 80
+  },
+  themeVariables: {
+    fontSize: "20px"
+  }
+});
+"""
 
 
 # -- Options for HTML output

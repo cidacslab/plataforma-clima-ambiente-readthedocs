@@ -1,8 +1,8 @@
 
-Cidacs Climate and Environment Platform - Documentação
-===================================
+Cidacs Climate and Environment Platform - Documentation
+=======================================================
 
-This documentation provides a description of all the databases used in “Cidacs-Clima: Cidacs Climate and Environment Platform”. This platform was created to investigate the effects of climate and the environment on the health of the population, as well as to analyze how health, environmental or social policies mitigate the impacts of climate adversities [1]_. Funded by the Wellcome Trust, the project aims to integrate a variety of climate data, such as satellite information, data from weather stations, reanalysis data and information on extreme weather events [2]_. The aim is to contribute to the debate on the effects of climate storms on health, especially among low-income populations, who are more vulnerable to climate exposure.
+This documentation provides a description of all the databases used in "Cidacs-Clima: Cidacs Climate and Environment Platform". This platform was created to investigate the effects of climate and the environment on the health of the population, as well as to analyze how health, environmental or social policies mitigate the impacts of climate adversities [1]_. Funded by the Wellcome Trust, the project aims to integrate a variety of climate data, such as satellite information, data from weather stations, reanalysis data and information on extreme weather events [2]_. The aim is to contribute to the debate on the effects of climate storms on health, especially among low-income populations, who are more vulnerable to climate exposure.
 
 Coordinated by Cidacs, the initiative brings together partners such as the National Institute for Space Research (INPE), the National Center for Natural Disaster Monitoring and Alerts (CEMADEN), the European Space Agency (ESA), Fiocruz's Institute for Scientific and Technological Communication and Information (ICICT), and the Rene Rachou Institute (Fiocruz Minas Gerais). It also has the collaboration of the Fiocruz Center for International Relations in Health, the University of São Paulo (USP), The London School of Economics and Political Science (LSE), The London School of Hygiene & Tropical Medicine (LSHTM), the University of Lancaster, the Barcelona Institute for Global Health (ISGlobal), and the Federal University of Bahia (UFBA) [1]_.
 
@@ -26,16 +26,10 @@ Links, references, codes, program, or data processing workflow is provided to fa
 Contents
 --------
 
-.. health
-.. surveillance
-.. biological
-.. social_economical
-.. human_mobility
-
 .. toctree::
    ana_data
    cemaden_data
-   
+
 
 
 .. rubric:: References
