@@ -10,14 +10,16 @@ build:
   tools:
     python: "3.12"
     # You can also specify other tool versions:
-    # nodejs: "20"
+    nodejs: "20"
     # rust: "1.70"
     # golang: "1.20"
 
   # install theme
   jobs:
     post_create_environment:
-      - python -m pip install sphinx-book-theme sphinx-rtd-theme sphinx-mermaid
+      - python -m pip install sphinx-book-theme sphinx-rtd-theme sphinxcontrib-mermaid
+    post_install:
+      - npm install -g @mermaid-js/mermaid-cli
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:

@@ -29,7 +29,8 @@ The ANA system contains records of different categories of hydrometeorological s
 In addition to providing the complete list of stations, the HidroInventário supplies attributes that allow the calculation of the start date of operation for each unit, an essential piece of information to determine which stations have a minimum operational history and, therefore, have their data organized and prepared for subsequent download attempts. This pre-processing step ensures that only stations with sufficient operational time are considered in the data collection workflow.
 
 .. note::
-Only stations with a start of operation on or before 01/01/2024 were considered, ensuring that each station has at least one potential year of complete data, taking 31/12/2024 as the final reference date.
+
+  Only stations with a start of operation on or before 01/01/2024 were considered, ensuring that each station has at least one potential year of complete data, taking 31/12/2024 as the final reference date.
 
 
 
@@ -74,7 +75,8 @@ The inventory provides, for each station, a fixed set of registration fields rep
 The complete list of registration fields available for both types of ANA stations is provided in a ``.csv`` file containing the data descriptions supplied by ANA.
 
 .. note::
-The data dictionary for the variables present in the complete ANA registration listing will be made available at a later stage, after confirmation with ANA regarding the description of certain variables for which no documentation could be identified.
+
+  The data dictionary for the variables present in the complete ANA registration listing will be made available at a later stage, after confirmation with ANA regarding the description of certain variables for which no documentation could be identified.
 
 
 
@@ -200,148 +202,170 @@ The colors used in the diagrams represent groups of steps with similar roles wit
 
 
 
-.. mermaid::
-  flowchart LR
-    subgraph S1["Configuration and Functions"]
-      A1["Load packages"]:::configCode
-      A2["Define API constants"]:::configCode
-      A3["Define helper and utility functions"]:::configCode
-      A1 --> A2 --> A3
-    end
-
-    subgraph S2["Syntax and Registry Data"]
-      B1["Define file names by station type"]:::configCode
-      B2["Map inventory registry fields"]:::configCode
-      B3["Define columns for operation date calculations"]:::configCode
-      B1 --> B2 --> B3
-    end
-
-    %% Connections between sections via node
-    A3 --> B1
-
-    %% Color palette
-    classDef configCode fill:#fff3e0,stroke:#ef6c00;
-    classDef reqCode fill:#e3f2fd,stroke:#1565c0;
-    classDef validacao fill:#e8f5e9,stroke:#2e7d32;
-    classDef exportacao fill:#ede7f6,stroke:#5e35b1;
-
-
-
+Overview
+--------
 
 .. mermaid::
-  flowchart LR
-    subgraph S3["Request Handling and Parsing"]
-      C0["Validate station type (1 or 2)"]:::reqCode
-      C1["Build HTTP request with parameters"]:::reqCode
-      C2{"HTTP status 200?"}:::reqCode
-        C2c1["Print HTTP failure and return empty table"]:::reqCode
-        C2c2["Read XML and remove namespaces"]:::reqCode
-      C3{"Error node exists?"}:::reqCode
-        C3c1["Print error message and return empty table"]:::reqCode
-        C3c2["Locate Table nodes"]:::reqCode
-      C4{"Table nodes found?"}:::reqCode
-        C4c1["Print warning for state with no data and return empty table"]:::reqCode
-      C5["Extract stations and build raw table"]:::reqCode
 
-      C0 --> C1 --> C2
-      C2 -- "No" --> C2c1
-      C2 -- "Yes" --> C2c2
-      C2c2 --> C3
-      C3 -- "Yes" --> C3c1
-      C3 -- "No" --> C3c2
-      C3c2 --> C4
-      C4 -- "No" --> C4c1
-      C4 -- "Yes" --> C5
-    end
+   flowchart TB
+     A["Setup & Configuration"]:::configCode --> B["Schema & Registry Mapping"]:::configCode
+     B --> C["Request & XML Parsing"]:::reqCode
+     C --> D["Post-processing/Validation"]:::validacao
+     D --> E["Outputs & Export"]:::exportacao
 
-    %% Color palette
-    classDef configCode fill:#fff3e0,stroke:#ef6c00;
-    classDef reqCode fill:#e3f2fd,stroke:#1565c0;
-    classDef validacao fill:#e8f5e9,stroke:#2e7d32;
-    classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
 
+Setup / Schema
+--------------
 
 .. mermaid::
-  flowchart LR
-    subgraph S4["Data Cleaning and Typing"]
-      D1["Fix geographic coordinates"]:::validacao
-      D2["Convert numeric values and dates"]:::validacao
-      D3["Standardize text fields and codes"]:::validacao
-      D1 --> D2 --> D3
-    end
 
-    subgraph S5["Operation Dates"]
-      E1["Select period columns by type"]:::validacao
-      E2["Calculate DataInicioOperacao"]:::validacao
-      E3["Calculate DataFimOperacao"]:::validacao
-      E1 --> E2 --> E3
-    end
+   flowchart TB
+     subgraph S1["Setup & Configuration"]
+       A1["Load packages"]:::configCode
+       A2["Define API constants"]:::configCode
+       A3["Define helper/utility functions"]:::configCode
+       A1 --> A2 --> A3
+     end
 
-    subgraph S6["Deduplication"]
-      F1["Sort by administrative dates"]:::validacao
-      F2["Keep most recent registry per station code"]:::validacao
-      F1 --> F2
-    end
+     subgraph S2["Schema & Registry Mapping"]
+       B1["Define file naming by station type"]:::configCode
+       B2["Map registry (inventory) fields"]:::configCode
+       B3["Define columns used for operation dates"]:::configCode
+       B1 --> B2 --> B3
+     end
 
-    subgraph S7["Geographic Validation"]
-      G1["Adjust altitude outside acceptable range"]:::validacao
-      G2["Flag latitudes and longitudes outside Brazil"]:::validacao
-      G1 --> G2
-    end
+     A3 --> B1
 
-    %% Connections between sections
-    D3 --> E1
-    E3 --> F1
-    F2 --> G1
-
-    %% Color palette
-    classDef configCode fill:#fff3e0,stroke:#ef6c00;
-    classDef reqCode fill:#e3f2fd,stroke:#1565c0;
-    classDef validacao fill:#e8f5e9,stroke:#2e7d32;
-    classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
 
 
-
+Request / Parsing
+-----------------
 
 .. mermaid::
-  flowchart LR
-    subgraph S8["Main Pipeline"]
-      H0["Define station types and target states"]:::configCode
-      H1{"Query by state"}:::reqCode
-          H1h1["Query by iterating over station type and state"]:::reqCode
-          H1h2["Query all states for a given station type in a single request"]:::reqCode
-      H2["Apply cleaning, date calculation, deduplication and validation"]:::validacao
-      H3["Apply filter by DataInicioOperacao"]:::exportacao
-      H4["Generate station summaries by state"]:::exportacao
-      H5{"Export filtered stations?"}:::exportacao
-        H5h1["Export station list to .parquet and .xlsx"]:::exportacao
-        H5h2["Export station summary by state to .xlsx"]:::exportacao
-      H6["Store results in final list"]
 
-      %% Internal connections
-      H0 --> H1
-      H1 -- "Yes" --> H1h1 --> H2
-      H1 -- "No" --> H1h2 --> H2
-      H2 --> H3 --> H4 --> H5
-      H5 -- "Yes" --> H5h1 --> H5h2
-      H5 -- "No" --> H6
-    end
+   flowchart TB
+     C0["Validate station type (1 or 2)"]:::reqCode
+     C1["Build GET request (params)"]:::reqCode
+     C2{"HTTP 200?"}:::reqCode
+     C2_no["Log HTTP error + return empty table"]:::reqCode
+     C2_yes["Parse XML + drop namespaces"]:::reqCode
 
-    %% Legend subgraph
-    subgraph LEG["Legend"]
-        L1["Configuration"]:::configCode
-        L2["Requests and Parsing"]:::reqCode
-        L3["Validation and Processing"]:::validacao
-        L4["Export"]:::exportacao
-    end
+     C3{"XML error node?"}:::reqCode
+     C3_yes["Log API error + return empty table"]:::reqCode
+     C3_no["Locate <Table> nodes"]:::reqCode
 
-    %% Color palette
-    classDef configCode fill:#fff3e0,stroke:#ef6c00;
-    classDef reqCode fill:#e3f2fd,stroke:#1565c0;
-    classDef validacao fill:#e8f5e9,stroke:#2e7d32;
-    classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+     C4{"Any <Table> nodes?"}:::reqCode
+     C4_no["Warn: no data for region/state + return empty table"]:::reqCode
+     C4_yes["Extract stations + build raw table"]:::reqCode
+
+     C0 --> C1 --> C2
+     C2 -- "No" --> C2_no
+     C2 -- "Yes" --> C2_yes --> C3
+     C3 -- "Yes" --> C3_yes
+     C3 -- "No" --> C3_no --> C4
+     C4 -- "No" --> C4_no
+     C4 -- "Yes" --> C4_yes
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+
+
+
+
+Post-processing
+---------------
+
+.. mermaid::
+
+   flowchart TB
+     subgraph P1["Cleaning & Typing"]
+       D1["Fix coordinates"]:::validacao
+       D2["Convert numbers & dates"]:::validacao
+       D3["Standardize text & codes"]:::validacao
+       D1 --> D2 --> D3
+     end
+
+     subgraph P2["Operation Dates"]
+       E1["Select period columns (by type)"]:::validacao
+       E2["Compute OperationStartDate"]:::validacao
+       E3["Compute OperationEndDate"]:::validacao
+       E1 --> E2 --> E3
+     end
+
+     subgraph P3["Deduplication"]
+       F1["Sort by administrative dates"]:::validacao
+       F2["Keep most recent record per station code"]:::validacao
+       F1 --> F2
+     end
+
+     subgraph P4["Geographic Validation"]
+       G1["Clamp/flag altitude out of range"]:::validacao
+       G2["Flag lat/lon outside Brazil"]:::validacao
+       G1 --> G2
+     end
+
+     %% Pipeline connections
+     D3 --> E1
+     E3 --> F1
+     F2 --> G1
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+
+
+
+Outputs / Main Pipeline decision
+---------------------------
+
+.. mermaid::
+
+   flowchart TB
+     H0["Select station types + target states"]:::configCode
+     H1{"Query mode"}:::reqCode
+     H1a["Iterate: (type × state)"]:::reqCode
+     H1b["Single call per type (all states)"]:::reqCode
+
+     H2["Run post-processing & validation"]:::validacao
+     H3["Filter by OperationStartDate"]:::exportacao
+     H4["Generate summaries by state"]:::exportacao
+
+     H5{"Export filtered stations?"}:::exportacao
+     X1["Stations: .parquet + .xlsx"]:::exportacao
+     X2["Summary by state: .xlsx"]:::exportacao
+     H6["Return/store final results"]:::exportacao
+
+     %% Pipeline logic
+     H0 --> H1
+     H1 -- "Iterate" --> H1a --> H2
+     H1 -- "Single call" --> H1b --> H2
+     H2 --> H3 --> H4 --> H5
+     H5 -- "Yes" --> X1 --> X2 --> H6
+     H5 -- "No" --> H6
+
+     %% Color palette
+     classDef configCode fill:#fff3e0,stroke:#ef6c00;
+     classDef reqCode fill:#e3f2fd,stroke:#1565c0;
+     classDef validacao fill:#e8f5e9,stroke:#2e7d32;
+     classDef exportacao fill:#ede7f6,stroke:#5e35b1;
+
 
 
 Descriptive information about listed gauges stations

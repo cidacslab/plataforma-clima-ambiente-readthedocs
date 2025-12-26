@@ -216,7 +216,7 @@ The dictionary with all the variables available on CEMADEN's station registratio
 The data regarding the list of stations were obtained through the python code developed to make requests to the CEMADEN system via PED. However, to make these requests, it is necessary to register with the PED, with login and password, so that a temporary access token is generated, necessary to make data requests.
 
 .. note::
-   
+
    You can download the complete list of registered stations here: `CEMADEN registered stations <_static/lista_estacoes_cemaden.csv>`_
 
 
@@ -312,19 +312,47 @@ The table with :ref:`station-type-by-region` presents the frequencies and percen
 
 .. _station-type-by-region:
 
-.. table:: Frequencies and percentages of CEMADEN station types by Brazilian region
-   :widths: auto
+.. list-table:: Frequencies and percentages of CEMADEN station types by Brazilian region
+   :header-rows: 1
+   :widths: 22 12 20 14 14 18
    :align: center
 
-   ===================  ============  ======================  ==============  ==============  ===================
-   Region                Acqua         Agrometeorological     Geotechnical    Hydrologic      Rainfall
-   ===================  ============  ======================  ==============  ==============  ===================
-   Southeast Region      31 (1.83%)    4 (0.24%)               57 (3.36%)      80 (4.72%)      1522 (89.85%)
-   Northeast Region      416 (33.23%)  78 (6.23%)              28 (2.24%)      29 (2.32%)      701 (55.99%)
-   South Region          0 (0.0%)      0 (0.0%)                11 (1.7%)       30 (4.64%)      606 (93.66%)
-   North Region          0 (0.0%)      0 (0.0%)                0 (0.0%)        5 (2.86%)       170 (97.14%)
-   Midwest Region        0 (0.0%)      0 (0.0%)                0 (0.0%)        4 (3.81%)       101 (96.19%)
-   ===================  ============  ======================  ==============  ==============  ===================
+   * - Region
+     - Acqua
+     - Agrometeorological
+     - Geotechnical
+     - Hydrologic
+     - Rainfall
+   * - Southeast Region
+     - 31 (1.83%)
+     - 4 (0.24%)
+     - 57 (3.36%)
+     - 80 (4.72%)
+     - 1522 (89.85%)
+   * - Northeast Region
+     - 416 (33.23%)
+     - 78 (6.23%)
+     - 28 (2.24%)
+     - 29 (2.32%)
+     - 701 (55.99%)
+   * - South Region
+     - 0 (0.0%)
+     - 0 (0.0%)
+     - 11 (1.7%)
+     - 30 (4.64%)
+     - 606 (93.66%)
+   * - North Region
+     - 0 (0.0%)
+     - 0 (0.0%)
+     - 0 (0.0%)
+     - 5 (2.86%)
+     - 170 (97.14%)
+   * - Midwest Region
+     - 0 (0.0%)
+     - 0 (0.0%)
+     - 0 (0.0%)
+     - 4 (3.81%)
+     - 101 (96.19%)
 
 The table shows the frequency and percentage (by row) of each CEMADEN station type across the five Brazilian regions.
 
