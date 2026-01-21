@@ -31,6 +31,7 @@ The observational data collected by CEMADEN are available to the public through 
 *	Accounts that have been inactive for more than one year are automatically removed.
 
 .. note::
+
    It is mandatory to cite the source of the data when using them: DATA FROM THE CEMADEN/MCTIC OBSERVATIONAL NETWORK.
 
 
