@@ -29,6 +29,7 @@ Contents
 .. toctree::
    ana_data
    cemaden_data
+   mapbiomas_data
 
 
 
