@@ -251,9 +251,9 @@ The class codes (1xx, 2xx, …, 8xx) correspond to combinations of deforestation
 
 For further details on the data processing logic and reproducibility, including code examples and pipeline implementation, please refer to the deforestation MapBiomas section of the `CIDACS GitHub repository <https://github.com/cidacslab/wclimate-data-processing/tree/main/deforestation-mapbiomas-data-processing>`_.
 
-
+===========
 Conclusion
------------
+===========
 
 MapBiomas provides a unique, long-term and consistent set of datasets describing land use and land cover, deforestation and secondary vegetation for Brazil, based on remote sensing and machine learning techniques. By processing these national-scale products into municipal-level area summaries, it becomes possible to integrate land use change information with health, environmental and socio-economic datasets in a systematic manner.
 
@@ -265,9 +265,9 @@ The workflows described here ensure:
 
 Researchers and public managers can use these processed datasets to evaluate land use dynamics, monitor environmental change and support evidence-based public policies across Brazilian biomes.
 
-
+===========
 References
------------
+===========
 
 .. [1] MapBiomas. MapBiomas Project – Land Use and Land Cover Mapping in Brazil [Internet]. Brazil: MapBiomas; [cited 2025 Feb 15]. Available from: https://brasil.mapbiomas.org/
 
@@ -275,9 +275,9 @@ References
 
 .. [3] MapBiomas. MapBiomas Deforestation and Secondary Vegetation – Methodology [Internet]. Brazil: MapBiomas; [cited 2025 Feb 15]. Available from: https://brasil.mapbiomas.org/metodo-desmatamento/
 
-
+=============
 Contributors
--------------
+=============
 
 .. list-table::
    :header-rows: 1
@@ -289,4 +289,5 @@ Contributors
    * - Henrique Ferreira dos Santos
      - Center for Data and Knowledge Integration for Health (CIDACS), Instituto Gonçalo Moniz, Fundação Oswaldo Cruz, Salvador, Brazil
    * - José Vinicius Alves
+
      - Center for Data and Knowledge Integration for Health (CIDACS), Instituto Gonçalo Moniz, Fundação Oswaldo Cruz, Salvador, Brazil
