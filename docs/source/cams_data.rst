@@ -189,11 +189,9 @@ Researchers and public managers can use this dataset to assess atmospheric expos
 
 .. rubric:: References
 
-.. [1] Inness A, Ades M, Agustí-Panareda A, et al. The CAMS reanalysis of atmospheric composition. *Atmospheric Chemistry and Physics*. 2019;19(6):3515–3556. doi:10.5194/acp-19-3515-2019
+.. [1]  Copernicus Atmosphere Monitoring Service (CAMS). Copernicus Atmosphere Monitoring Service – Overview [Internet]. European Union; [cited 2025 Feb 15]. Available from: https://atmosphere.copernicus.eu/
 
 .. [2] Copernicus Atmosphere Monitoring Service (CAMS). CAMS Global Reanalysis (EAC4) [Internet]. European Centre for Medium-Range Weather Forecasts (ECMWF); [cited 2025 Feb 15]. Available from: https://ads.atmosphere.copernicus.eu/datasets/cams-global-reanalysis-eac4
-
-.. [3] Copernicus Atmosphere Monitoring Service (CAMS). Copernicus Atmosphere Monitoring Service – Overview [Internet]. European Union; [cited 2025 Feb 15]. Available from: https://atmosphere.copernicus.eu/
 
 **Contributors**
 
@@ -208,4 +206,5 @@ Researchers and public managers can use this dataset to assess atmospheric expos
      - Center for Data and Knowledge Integration for Health (CIDACS), Instituto Gonçalo Moniz, Fundação Oswaldo Cruz, Salvador, Brazil
    * - José Vinicius Alves
      - Center for Data and Knowledge Integration for Health (CIDACS), Instituto Gonçalo Moniz, Fundação Oswaldo Cruz, Salvador, Brazil
+
 
