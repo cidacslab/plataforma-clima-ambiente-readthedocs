@@ -1,11 +1,11 @@
 ####################
 MapBiomas datasets
 ####################
-Updated: 2025-02-15
+Updated: 2026-02-21
 
 .. contents::
    :local:
-   :depth: 3
+   :depth: 2
 
 =================================
 Introduction: What is MapBiomas?
@@ -265,19 +265,15 @@ The workflows described here ensure:
 
 Researchers and public managers can use these processed datasets to evaluate land use dynamics, monitor environmental change and support evidence-based public policies across Brazilian biomes.
 
-===========
-References
-===========
+.. rubric:: References
 
-.. [1] MapBiomas. MapBiomas Project – Land Use and Land Cover Mapping in Brazil [Internet]. Brazil: MapBiomas; [cited 2025 Feb 15]. Available from: https://brasil.mapbiomas.org/
+.. [1] MapBiomas. MapBiomas Project – Land Use and Land Cover Mapping in Brazil [Internet]. Brazil: MapBiomas. Available from: https://brasil.mapbiomas.org/
 
-.. [2] MapBiomas. MapBiomas Brazil – Land Use and Land Cover Mapping Methodology [Internet]. Brazil: MapBiomas; [cited 2025 Feb 15]. Available from: https://brasil.mapbiomas.org/metodo_cobertura_e_uso/
+.. [2] MapBiomas. MapBiomas Brazil – Land Use and Land Cover Mapping Methodology [Internet]. Brazil: MapBiomas. Available from: https://brasil.mapbiomas.org/metodo_cobertura_e_uso/
 
-.. [3] MapBiomas. MapBiomas Deforestation and Secondary Vegetation – Methodology [Internet]. Brazil: MapBiomas; [cited 2025 Feb 15]. Available from: https://brasil.mapbiomas.org/metodo-desmatamento/
+.. [3] MapBiomas. MapBiomas Deforestation and Secondary Vegetation – Methodology [Internet]. Brazil: MapBiomas. Available from: https://brasil.mapbiomas.org/metodo-desmatamento/
 
-=============
-Contributors
-=============
+**Contributors**
 
 .. list-table::
    :header-rows: 1
