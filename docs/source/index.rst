@@ -31,6 +31,9 @@ Contents
    cams_data
    cemaden_data
    mapbiomas_data
+   modis_lst_data
+   ndvi_data
+   srtm_data
 
 
 
