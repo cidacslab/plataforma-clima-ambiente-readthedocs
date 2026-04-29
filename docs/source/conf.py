@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'CIDACS Clima - Data descriptor'
-copyright = '2025, Centro de Integração de Dados e Conhecimentos para Saúde (CIDACS) / Fiocruz'
+copyright = '2026, Centro de Integração de Dados e Conhecimentos para Saúde (CIDACS) / Fiocruz'
 author = 'CIDACS / Fiocruz'
 
 release = '0.1'
@@ -37,8 +37,9 @@ html_static_path = ['_static']
 
 # -- Options for diagrams output
 
-#mermaid_output_format = "svg"
-mermaid_params = ["-p", "puppeteer-config.json"]
+# mermaid_params só é lido em modo CLI (mermaid_output_format = "png"/"svg").
+# Manter comentado enquanto o formato padrão (JS inline) estiver em uso.
+#mermaid_params = ["-p", "puppeteer-config.json"]
 
 # Use list form (mais compativel)
 #mermaid_cmd = ["npx", "--no-install", "mmdc"]
@@ -64,6 +65,7 @@ mermaid.initialize({
 html_theme = 'sphinx_rtd_theme'
 
 html_css_files = ['css/custom.css']
+html_js_files  = ['js/custom.js']
 
 html_logo = '_static/images/cidacs_clima_logo.png'
 

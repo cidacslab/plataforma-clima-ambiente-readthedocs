@@ -1,59 +1,131 @@
+/* ============================================================
+   GERAL
+   ============================================================ */
 section p {
   text-align: justify;
 }
 
-/* Cor de fundo da barra do logo / nome do projeto */
-.wy-side-nav-search {
-  background-color: #f6e4d1 !important;
-  /* escolha sua cor */
-}
-
-/* Ajustar cor do texto do nome do projeto para contraste */
-.wy-side-nav-search>a {
-  color: #76140c !important;
-}
-
-
-
-/* fundo da barra onde fica o logo / nome do projeto */
+/* ============================================================
+   BARRA LATERAL — logo / nome do projeto
+   ============================================================ */
+.wy-side-nav-search,
 div.wy-side-nav-search {
   background-color: #f6e4d1 !important;
 }
 
-/* texto do nome do projeto */
-div.wy-side-nav-search>a {
+.wy-side-nav-search > a,
+div.wy-side-nav-search > a {
   color: #76140c !important;
 }
 
-/* se houver logo, garantir que o fundo do link não sobrescreva */
 div.wy-side-nav-search a img {
   background: transparent !important;
 }
 
+/* ============================================================
+   MERMAID — estado base (antes do zoom ser aplicado pelo JS)
+   ============================================================ */
+div.mermaid {
+  width: 100%;
+  margin: 0 auto 8px auto;
+}
 
-/** Set Mermaid Diagrams to 100% width of screen by default */
-
-/* Remove caps and allow Mermaid SVG to really scale */
 div.mermaid svg {
   width: 100% !important;
   height: auto !important;
   max-width: none !important;
-  /* <- remove limite */
 }
 
-/* Big container for svg */
-div.mermaid {
-  width: min(1400px, 100%);
-  margin: 0 auto 24px auto;
+.mermaid .edgePath path        { stroke-opacity: 0.45; }
+.mermaid .edgePath marker path { fill-opacity:   0.45; }
+
+/* ============================================================
+   MERMAID — após o JS aplicar zoom (classe adicionada pelo JS)
+   ============================================================ */
+
+/*
+ * div.mermaid TORNA-SE a área de zoom.
+ * O SVG continua aqui dentro — o botão de expansão do RTD
+ * ainda o encontra no lugar esperado.
+ */
+div.mermaid.mermaid-zoom-area {
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  display: block;
+  /* altura definida inline pelo JS com base no viewBox do SVG */
 }
 
-
-/* Controla a opacidade das setas (linhas e pontas) */
-.mermaid .edgePath path {
-  stroke-opacity: 0.45;
+div.mermaid.mermaid-zoom-area:active {
+  cursor: grabbing;
 }
 
-/* Controla a opacidade das pontas de seta */
-.mermaid .edgePath marker path {
-  fill-opacity: 0.45;
+div.mermaid.mermaid-zoom-area svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  display: block;
+}
+
+/* ============================================================
+   MERMAID — wrapper externo (apenas borda + controles)
+   ============================================================ */
+.mermaid-zoom-wrapper {
+  width: 100%;           /* ocupa toda a largura do conteúdo */
+  margin: 0 0 28px 0;
+  border: 1px solid #e0cfc4;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fdfaf7;
+}
+
+/* ============================================================
+   MERMAID — barra de controles de zoom
+   ============================================================ */
+.mermaid-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #f6e4d1;
+  border-top: 1px solid #e0cfc4;
+  justify-content: flex-end;
+}
+
+.mermaid-zoom-controls .zoom-label {
+  font-size: 11px;
+  color: #76140c;
+  margin-right: 4px;
+  font-family: sans-serif;
+  opacity: 0.75;
+  user-select: none;
+}
+
+.mermaid-zoom-controls button {
+  background: #fff;
+  border: 1px solid #c9b09a;
+  border-radius: 4px;
+  color: #76140c;
+  font-size: 15px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.mermaid-zoom-controls button:hover  { background: #f6e4d1; border-color: #76140c; }
+.mermaid-zoom-controls button:active { background: #e8cbb4; }
+
+.mermaid-zoom-controls .zoom-level {
+  font-size: 11px;
+  font-family: monospace;
+  color: #76140c;
+  min-width: 40px;
+  text-align: center;
+  user-select: none;
 }
