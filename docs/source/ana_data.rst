@@ -64,22 +64,6 @@ Configuration and auxiliary functions
 Before data collection, the script defines the official ANA endpoint, along with a set of auxiliary functions responsible for handling the returned content. These include routines to extract values from XML tags, convert numbers received as text, parse dates in different formats, and correct coordinates that are returned without a decimal point or that present values outside the limits of Brazilian territory. These functions form the foundation of the pipeline, allowing the data to be processed in a stable and automated manner regardless of variations in the response formats provided by the API.
 
 
-
-
-
-Inventory registration fields
-=============================
-
-The inventory provides, for each station, a fixed set of registration fields representing operational metadata, including location (state, municipality, hydrographic basin), operator attributes, types of installed instruments, installation and removal dates, operational status, and other related information. The script maintains a single, consolidated list of all these field names, ensuring that each station is recorded using the same structure and that different queries return mutually compatible tables.
-
-The complete list of registration fields available for both types of ANA stations is provided in a ``.csv`` file containing the data descriptions supplied by ANA.
-
-.. note::
-
-  The data dictionary for the variables present in the complete ANA registration listing will be made available at a later stage, after confirmation with ANA regarding the description of certain variables for which no documentation could be identified.
-
-
-
 Candidate start and end dates of operation
 ==========================================
 
@@ -437,6 +421,20 @@ The following figure shows the spatial distribution of the rainfall gauges stati
 
 
 Although there are stations all over Brazil, their greatest concentration is on the east coast, where the largest cities are concentrated.
+
+
+
+Inventory registration fields
+=============================
+
+The inventory provides, for each station, a fixed set of registration fields representing operational metadata, including location (state, municipality, hydrographic basin), operator attributes, types of installed instruments, installation and removal dates, operational status, and other related information. The script maintains a single, consolidated list of all these field names, ensuring that each station is recorded using the same structure and that different queries return mutually compatible tables.
+
+The complete list of registration fields available for both types of ANA stations is provided in a ``.csv`` file containing the data descriptions supplied by ANA.
+
+.. note::
+
+  The data dictionary for the variables present in the complete ANA registration listing will be made available at a later stage, after confirmation with ANA regarding the description of certain variables for which no documentation could be identified.
+
 
 
 
