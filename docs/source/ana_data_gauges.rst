@@ -63,16 +63,8 @@ Configuration and auxiliary functions
 
 Before data collection, the script defines the official ANA `endpoint <https://telemetriaws1.ana.gov.br/ServiceANA.asmx/HidroInventario>`_, along with a set of auxiliary functions responsible for handling the returned content. These include routines to extract values from XML tags, convert numbers received as text, parse dates in different formats, and correct coordinates that are returned without a decimal point or that present values outside the limits of Brazilian territory. These functions form the foundation of the pipeline, allowing the data to be processed in a stable and automated manner regardless of variations in the response formats provided by the API.
 
+The inventory registration fields for ANA stations (Types 1 and 2) consist of a fixed set of fields representing operational metadata, including location (state, municipality, watershed), operator attributes, types of instruments installed, installation and removal dates, operational status, and other related information. The script maintains a single, consolidated list of all these field names, ensuring that each station is registered using the same structure and that different queries return mutually compatible tables.
 
-
-
-
-.. _inventory-registration-fields:
-
-Inventory registration fields
-=============================, for each station, a fixed set of registration fields representing operational metadata, including location (state, municipality, hydrographic basin), operator attributes, types of installed instruments, installation and removal dates, operational status, and other related information. The script maintains a single, consolidated list of all these field names, ensuring that each station is recorded using the same structure and that different queries return mutually compatible tables.
-
-The complete list of registration fields available for both types of ANA stations is provided in a ``.csv`` file containing the data descriptions supplied by ANA.
 
 .. note::
 
