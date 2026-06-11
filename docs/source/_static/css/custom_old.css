@@ -1,0 +1,203 @@
+/* ============================================================
+   GERAL
+   ============================================================ */
+section p {
+  text-align: justify;
+}
+
+/* ============================================================
+   BARRA LATERAL — logo / nome do projeto
+   ============================================================ */
+.wy-side-nav-search,
+div.wy-side-nav-search {
+  background-color: #f6e4d1 !important;
+}
+
+.wy-side-nav-search > a,
+div.wy-side-nav-search > a {
+  color: #76140c !important;
+}
+
+div.wy-side-nav-search a img {
+  background: transparent !important;
+}
+
+/* ============================================================
+   MERMAID — base (before JS zoom is applied)
+   ============================================================ */
+
+/*
+ * color-scheme: light tells the browser NOT to apply automatic
+ * dark-mode adaptations (color inversion, CSS variable overrides)
+ * to this element and ALL its SVG descendants.
+ * This is the primary defence against dark-mode distortion of
+ * Mermaid node colours, text, edges, and subgraph backgrounds.
+ */
+div.mermaid {
+  width: 100%;
+  margin: 0 auto 8px auto;
+  color-scheme: light;
+}
+
+div.mermaid svg {
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  background-color: #ffffff;
+}
+
+.mermaid .edgePath path        { stroke-opacity: 0.45; }
+.mermaid .edgePath marker path { fill-opacity:   0.45; }
+
+/* ============================================================
+   MERMAID — subgraph (cluster) backgrounds
+   Always light, regardless of OS/browser colour scheme.
+
+   In Mermaid.js, subgraphs render as <g class="cluster"> with
+   a <rect> child that fills the background. Without explicit
+   overrides, browsers in dark mode can apply a darkened fill
+   to these rect elements, turning subgraph backgrounds black
+   and making node labels inside them unreadable.
+   ============================================================ */
+div.mermaid svg .cluster rect {
+  fill:   #f5f7fa !important;   /* very light neutral background */
+  stroke: #cccccc !important;
+}
+
+div.mermaid svg .cluster-label,
+div.mermaid svg .cluster-label text,
+div.mermaid svg .cluster-label span {
+  fill:  #333333 !important;
+  color: #333333 !important;
+}
+
+/* ============================================================
+   MERMAID — explicit dark-mode override block
+   Covers residual cases where color-scheme: light is
+   insufficient on certain browser/OS combinations (e.g. some
+   Chromium versions that honour color-scheme only for HTML
+   elements, not for embedded SVG descendants).
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+
+  div.mermaid,
+  div.mermaid svg,
+  .mermaid-zoom-wrapper,
+  .mermaid-zoom-area {
+    color-scheme: light;
+    background-color: #ffffff;
+  }
+
+  /* Node text */
+  div.mermaid svg text,
+  div.mermaid svg .label,
+  div.mermaid svg .nodeLabel,
+  div.mermaid svg .edgeLabel {
+    fill:  #000000 !important;
+    color: #000000 !important;
+  }
+
+  /* Subgraph backgrounds */
+  div.mermaid svg .cluster rect {
+    fill:   #f5f7fa !important;
+    stroke: #aaaaaa !important;
+  }
+
+  div.mermaid svg .cluster-label,
+  div.mermaid svg .cluster-label text,
+  div.mermaid svg .cluster-label span {
+    fill:  #333333 !important;
+    color: #333333 !important;
+  }
+
+  /* SVG root background */
+  div.mermaid svg {
+    background-color: #ffffff !important;
+  }
+}
+
+/* ============================================================
+   MERMAID — zoom area (class added by custom.js)
+   ============================================================ */
+div.mermaid.mermaid-zoom-area {
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  display: block;
+  color-scheme: light;
+}
+
+div.mermaid.mermaid-zoom-area:active {
+  cursor: grabbing;
+}
+
+div.mermaid.mermaid-zoom-area svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  display: block;
+}
+
+/* ============================================================
+   MERMAID — outer wrapper (border + controls)
+   ============================================================ */
+.mermaid-zoom-wrapper {
+  width: 100%;
+  margin: 0 0 28px 0;
+  border: 1px solid #e0cfc4;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fdfaf7;
+  color-scheme: light;
+}
+
+/* ============================================================
+   MERMAID — zoom control bar
+   ============================================================ */
+.mermaid-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #f6e4d1;
+  border-top: 1px solid #e0cfc4;
+  justify-content: flex-end;
+}
+
+.mermaid-zoom-controls .zoom-label {
+  font-size: 11px;
+  color: #76140c;
+  margin-right: 4px;
+  font-family: sans-serif;
+  opacity: 0.75;
+  user-select: none;
+}
+
+.mermaid-zoom-controls button {
+  background: #fff;
+  border: 1px solid #c9b09a;
+  border-radius: 4px;
+  color: #76140c;
+  font-size: 15px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.mermaid-zoom-controls button:hover  { background: #f6e4d1; border-color: #76140c; }
+.mermaid-zoom-controls button:active { background: #e8cbb4; }
+
+.mermaid-zoom-controls .zoom-level {
+  font-size: 11px;
+  font-family: monospace;
+  color: #76140c;
+  min-width: 40px;
+  text-align: center;
+  user-select: none;
+}
