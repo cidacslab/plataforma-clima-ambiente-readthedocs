@@ -1,5 +1,5 @@
 ###########################################
-ANA datasets
+Download Gauges Data
 ###########################################
 
 Updated: 2026-06-10
@@ -849,7 +849,7 @@ This section summarises the known limitations of the ANA station inventory and t
 
 **Incomplete cadastral documentation**
 
-The HidroInventário endpoint returns a fixed set of registration fields for each station. However, the official documentation provided by ANA does not cover all columns present in the returned dataset. Several fields — particularly those related to specific instrument types, administrative sub-categories, and certain operational flags — are not described in any publicly available ANA document identified at the time of this writing. 
+The HidroInventário endpoint returns a fixed set of registration fields for each station. However, the official documentation provided by ANA does not cover all columns present in the returned dataset. Several fields — particularly those related to specific instrument types, administrative sub-categories, and certain operational flags — are not described in any publicly available ANA document identified at the time of this writing.
 
 **Standard units of measurement**
 
