@@ -363,7 +363,7 @@ The ANA system registers a total of **16,078 streamflow stations** with a ``Data
 
    * - Ranking
      - Responsible agency
-     - Frequency n (%)
+     - Frequency (%)
    * - 1
      - ANA
      - 3,914 (24.3%)
@@ -416,11 +416,11 @@ Table 1b presents the number of streamflow stations eligible for each climatolog
    * - 1
      - 1961–1990
      - 6,534
-     - 40.6
+     - 40.64
    * - 2
      - 1991–2020
-     - 13,249
-     - 82.4
+     - 15,149
+     - 94.22
    * - 3
      - 2021–2024
      - 16,078
@@ -429,7 +429,7 @@ Table 1b presents the number of streamflow stations eligible for each climatolog
 *Source: Original research results.*
 
 
-Of the 16,078 streamflow stations registered with a ``DataInicioOperacao`` on or before 01/01/2024, the proportion of stations eligible for each climatological normal decreases progressively as the period recedes further into the past: all 16,078 stations (100.0%) are eligible for the 2021–2024 normal, while 13,249 (82.4%) meet the eligibility criterion for the 1991–2020 normal, and 6,534 (40.6%) for the 1961–1990 normal (Table 1b). Eligibility is determined by a cutoff applied to ``DataInicioOperacao``, which is discussed in detail in the sections :ref:`start-end-dates-gauges` and :ref:`data-scope-temporal-coverage`.
+Of the 16,078 streamflow stations registered with a ``DataInicioOperacao`` on or before 01/01/2024, the proportion of stations eligible for each climatological normal decreases progressively as the period recedes further into the past: all 16,078 stations (100.0%) are eligible for the 2021–2024 normal, while 15.149 (94,22%) meet the eligibility criterion for the 1991–2020 normal, and 6,534 (40.6%) for the 1961–1990 normal (Table 1b). Eligibility is determined by a cutoff applied to ``DataInicioOperacao``, which is discussed in detail in the sections :ref:`start-end-dates-gauges` and :ref:`data-scope-temporal-coverage`.
 
 
 Rainfall gauges stations (Type 2)
@@ -443,7 +443,7 @@ The ANA system registers a total of **19,985 rainfall stations** with a ``DataIn
 
    * - Ranking
      - Responsible agency
-     - Frequency n (%)
+     - Frequency (%)
    * - 1
      - ANA
      - 4,126 (20.6%)
@@ -495,11 +495,11 @@ Table 2b presents the number of rainfall stations eligible for each climatologic
    * - 1
      - 1961–1990
      - 11,627
-     - 58.2
+     - 58.18
    * - 2
      - 1991–2020
      - 19,582
-     - 98.0
+     - 97.98
    * - 3
      - 2021–2024
      - 19,985
