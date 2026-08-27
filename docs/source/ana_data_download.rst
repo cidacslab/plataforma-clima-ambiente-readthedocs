@@ -354,7 +354,7 @@ Table 5 presents, for each data type and climatological normal period, the total
    +--------------+-------------------------+--------------+--------------+--------------+---------------+--------------+--------------+
    | Stage        | 16,078                  | 6,534        | 4,174 (63.9%)| 15,149       | 4,660 (30.8%) | 16,078       | 2,576 (16.0%)|
    +--------------+-------------------------+--------------+--------------+--------------+---------------+--------------+--------------+
-   | Discharge    | 16,078                  | 6,534        | 2,557 (39.1%)| 15,149       | 2,589* (17.1%)| 16,078       | 1,746 (10.9%)|
+   | Discharge    | 16,078                  | 6,534        | 2,557 (39.1%)| 15,149       | 3,126 (20.6%) | 16,078       | 1,746 (10.9%)|
    +--------------+-------------------------+--------------+--------------+--------------+---------------+--------------+--------------+
 
 *Source: Original research results.*
@@ -363,11 +363,11 @@ Table 5 presents, for each data type and climatological normal period, the total
 
    The number of eligible stations used as the denominator in Table 5 corresponds to the stations for which the value of “DataInicioOperacao” falls on or before the cut-off date “corte_final” for each climatological normal, as described in the section :ref:`data-scope-temporal-coverage`. Water level and discharge stations share the same total eligibility figures, as both variables are measured at Type 1 stations; however, the number of stations with available water level or discharge data may differ for the same period.
 
-Earlier climatological normals include fewer eligible stations, reflecting the historical expansion of the monitoring network. Among the stations eligible for each period, precipitation presented the highest data availability, with 8,959 stations containing data (77.1% of 11,627 eligible stations) for the 1961-1990 normal. For the 1991-2020 normal, 19,582 precipitation stations were eligible for download, of which 8,569 (43.8%) contained data. Stage and discharge data were available for 4,660 (30.8% of 15,149 eligible stations) and 2,589* (17.1% of 15,149 eligible stations) stations respectively. For the 2021-2024 period, all stations in operation by 1 January 2024 were eligible for download, totalling 19,985 precipitation stations and 16,078 stage and discharge stations. Among these, data were available for 4,399 precipitation (22.0%), 2,576 stage (16.0%), and 1,746 discharge (10.9%) stations. The lower percentages observed for this most recent period are expected because 2021-2024 is still in progress, and a substantial share of records had not yet been entered into the ANA repository at the time of data extraction.
+Earlier climatological normals include fewer eligible stations, reflecting the historical expansion of the monitoring network. Among the stations eligible for each period, precipitation presented the highest data availability, with 8,959 stations containing data (77.1% of 11,627 eligible stations) for the 1961-1990 normal. For the 1991-2020 normal, 19,582 precipitation stations were eligible for download, of which 8,569 (43.8%) contained data. Stage and discharge data were available for 4,660 (30.8% of 15,149 eligible stations) and 3,126 (20.6% of 15,149 eligible stations) stations respectively. For the 2021-2024 period, all stations in operation by 1 January 2024 were eligible for download, totalling 19,985 precipitation stations and 16,078 stage and discharge stations. Among these, data were available for 4,399 precipitation (22.0%), 2,576 stage (16.0%), and 1,746 discharge (10.9%) stations. The lower percentages observed for this most recent period are expected because 2021-2024 is still in progress, and a substantial share of records had not yet been entered into the ANA repository at the time of data extraction.
 
-.. warning::
+.. note::
 
-   Whilst downloading flow data for the 1991-2020 climatological average, an instability was detected on ANA's *WebService* server, affecting the states of PE, PI, PR, RJ and RN. The data for these states is currently being downloaded again. The complete absence of flow records for PI, PR and RJ during the affected extraction run — prior to the new download — resulted in a temporary underestimation of the number of stations with available flow data for climatological normal 2 (1991-2020). The values marked with an asterisk in Table 5 reflect the counts that will be corrected following the new download. Users working directly with the raw run summary files (``ResumoExecução``) from the original run should take into account the additional run summary file for the affected states.
+   While downloading flow data for the 1991-2020 climatological normal, an instability was detected on ANA's *WebService* server, affecting the states of PE, PI, PR, RJ and RN. The complete absence of flow records for PI, PR and RJ during the affected extraction run resulted in a temporary underestimation of the number of stations with available flow data for climatological normal 2 (1991-2020). Data for the five affected states were re-downloaded and delivered as a separate run summary file, which does not follow the standard ``ResumoExecucao_ANA_<tipo>_normal_<N>_<date>`` naming (it carries the affected state codes instead). This correction is now applied automatically by the statistics-generation script (``stats_documentation_tables_v4.R``) through an explicit patch mechanism: the outdated rows for the five affected states are replaced with the re-downloaded ones before the national totals are aggregated. The figures presented in Table 5 above already reflect this correction. Users working directly with the raw run summary files (``ResumoExecução``) should take into account the additional run summary file for the affected states.
 
 
 Quality and Consistency of the Extracted Dataset
@@ -389,7 +389,7 @@ Table 6 reports, for each data type and climatological normal, the total number 
    +--------------+------------------+-------------------+------------------+-------------------+------------------+-------------------+
    | Stage        | 595,314          | 427,744 (71.9%)   | 785,346          | 643,635 (82.0%)   | 101,400          | 63,218 (62.3%)    |
    +--------------+------------------+-------------------+------------------+-------------------+------------------+-------------------+
-   | Discharge    | 453,088          | 402,993 (88.9%)   | 564,395          | 514,202 (91.1%)   | 70,694           | 50,333 (71.2%)    |
+   | Discharge    | 453,088          | 402,993 (88.9%)   | 665,198          | 599,653 (90.1%)   | 70,694           | 50,333 (71.2%)    |
    +--------------+------------------+-------------------+------------------+-------------------+------------------+-------------------+
 
 *Source: Original research results.*
@@ -428,7 +428,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - 0 — Blank
      - Discharge
      - 431,876 (1.54%)
-     - 763,595 (2.69%)
+     - 859,333 (2.51%)
      - 67,043 (2.63%)
    * - 1 — Observed
      - Precipitation
@@ -443,7 +443,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - 1 — Observed
      - Discharge
      - 11,697,081 (41.75%)
-     - 14,499,620 (51.11%)
+     - 17,249,316 (50.36%)
      - 1,711,193 (67.08%)
    * - 2 — Estimated
      - Precipitation
@@ -458,7 +458,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - 2 — Estimated
      - Discharge
      - 623,687 (2.23%)
-     - 1,189,410 (4.19%)
+     - 1,314,684 (3.84%)
      - 143,995 (5.64%)
    * - 3 — Doubtful
      - Precipitation
@@ -473,7 +473,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - 3 — Doubtful
      - Discharge
      - 989 (0%)
-     - 7,332 (0.03%)
+     - 7,354 (0.02%)
      - 5,577 (0.22%)
    * - 4 — Accumulated
      - Precipitation
@@ -488,7 +488,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - 4 — Accumulated
      - Discharge
      - 70,957 (0.25%)
-     - 153,122 (0.54%)
+     - 199,387 (0.58%)
      - 2,326 (0.09%)
    * - Others
      - Precipitation
@@ -503,7 +503,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - Others
      - Discharge
      - 44,253 (0.16%)
-     - 341,675 (1.2%)
+     - 456,740 (1.33%)
      - 99,263 (3.89%)
    * - NA — No record
      - Precipitation
@@ -518,7 +518,7 @@ Table 7 presents the distribution of daily observation status flags across all e
    * - NA — No record
      - Discharge
      - 15,148,206 (54.07%)
-     - 11,415,508 (40.24%)
+     - 14,167,894 (41.36%)
      - 521,509 (20.44%)
 
 *Source: Original research results.*
@@ -528,18 +528,42 @@ Table 7 presents the distribution of daily observation status flags across all e
    The ``NA — No record`` category represents station-days within the period for which no observation was retrieved from the ANA *WebService*. This includes days that fall within the station's operational window but for which no data were entered into the repository. The ``Others`` category aggregates all status codes outside the documented range (0–4), which were identified in the streamflow records (Stage and Discharge) only. These undocumented codes are not described in the current ANA data dictionary and are retained in the dataset for auditability.
 
 
+Comparative Analysis: All Agencies versus ANA-Only Stations
+==============================================================
+
+Tables 5, 6 and 7 above report station coverage, monthly series consistency and daily status distribution for the full multi-agency network. Figures 1 to 3 disaggregate the same three metrics between all responsible agencies combined ("All agencies") and the subset of stations for which ANA itself is the responsible agency ("ANA only"), isolating the extent to which ANA's own monitoring network performs differently from the network as a whole.
+
+.. figure:: _static/images/ana_img/fig1_station_coverage.png
+   :width: 700
+   :alt: Eligible stations with at least one valid monthly record, all agencies vs. ANA only
+
+   **Figure 1** — Percentage of eligible stations with at least one valid monthly record, by data type and climatological normal, comparing all responsible agencies combined against ANA-only stations.
+
+Restricting coverage to ANA-responsible stations yields substantially higher percentages than the all-agencies figures reported in Table 5, across every data type and climatological normal. For precipitation, ANA-only coverage reaches 90.0%, 70.6% and 60.5% for the 1961-1990, 1991-2020 and 2021-2024 normals respectively, against 77.1%, 43.8% and 22.0% for all agencies combined. The same pattern holds for Stage (84.6%/60.7%/43.8% ANA-only vs. 63.9%/30.8%/16.0% all agencies) and Discharge (67.8%/51.0%/37.0% ANA-only vs. 39.1%/20.6%/10.9% all agencies). The gap between the two scopes widens toward the most recent normal, consistent with ANA's own network being comparatively less affected by the update latency discussed in the Overview above.
+
+.. figure:: _static/images/ana_img/fig2_monthly_consistency.png
+   :width: 700
+   :alt: Monthly series at Consistency Level 2, all agencies vs. ANA only
+
+   **Figure 2** — Percentage of monthly series with data reaching Consistency Level 2 (Consistido), by data type and climatological normal, comparing all responsible agencies combined against ANA-only stations.
+
+For the two streamflow variables, ANA-only series show consistently higher consistency shares than the combined network reported in Table 6: Discharge reaches 100.0%, 99.5% and 77.5% for the three normals (ANA only) against 88.9%, 90.1% and 71.2% (all agencies); Stage reaches 91.2%, 97.4% and 74.7% (ANA only) against 71.9%, 82.0% and 62.3% (all agencies). Precipitation shows a more mixed pattern: ANA-only consistency is far higher for the two older normals (89.9% vs. 26.7% for 1961-1990; 41.3% vs. 23.5% for 1991-2020), but both scopes converge to essentially 0% for 2021-2024, reflecting that consistency-level quality control for the most recent normal has not yet been completed for either the full network or the ANA subset.
+
+.. figure:: _static/images/ana_img/fig3_daily_status_distribution.png
+   :width: 750
+   :alt: Daily observation status distribution, all agencies vs. ANA only
+
+   **Figure 3** — Distribution of daily observation status flags as a percentage of total possible station-days, by data type and climatological normal, comparing all responsible agencies combined against ANA-only stations.
+
+Consistent with the coverage and consistency comparisons above, the share of ``NA — No record`` days is generally lower among ANA-responsible stations than across the full network reported in Table 7 — for example, 18.3% vs. 49.4% (Precipitation, 1991-2020), 24.6% vs. 41.4% (Discharge, 1991-2020) and 31.3% vs. 54.3% (Stage, 1991-2020) — indicating comparatively more complete daily coverage for ANA's own stations in recent decades. Correspondingly, the share of ``Observed`` (status 1) days is higher for the ANA-only subset in most combinations (e.g. 79.9% vs. 48.0% for Precipitation, 1991-2020; 64.5% vs. 50.4% for Discharge, 1991-2020). The 1961-1990 normal is a partial exception for precipitation, where the ANA-only ``NA`` share (48.0%) is close to, and marginally above, the all-agencies figure (44.1%) — a reminder that the ANA-only advantage in data completeness is not uniform across every combination of data type and normal.
+
+
 Computational Performance and Parallelisation Efficiency
 ==========================================================
 
 Computational performance was evaluated using precipitation data from the 1991-2020 climatological normal, covering 19,582 eligible stations. This subset was selected as it represents a robust operational scenario with a high data volume and broad spatial coverage, providing adequate conditions for pipeline performance assessment. Results compare sequential and parallel (12 *workers*) processing, with identical parameters and datasets applied in both scenarios to ensure comparability.
 
-The figure below illustrates the comparison of execution times across the two scenarios.
-
-.. figure:: _static/images/ana_img/figura1_tempo_execucao.png
-   :width: 600
-   :alt: Comparison of sequential vs. parallel execution times
-
-   **Figure 1** — Execution times for precipitation data retrieval (1991-2020). Parallel processing achieved a reduction of approximately 26% in total execution time relative to the sequential approach.
+The table below summarises the comparison of execution times across the two scenarios.
 
 +------------------------+---------------------------+------------------+
 | Scenario               | Total time                | Gain             |
