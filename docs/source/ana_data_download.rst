@@ -367,7 +367,7 @@ Earlier climatological normals include fewer eligible stations, reflecting the h
 
 .. note::
 
-   While downloading flow data for the 1991-2020 climatological normal, an instability was detected on ANA's *WebService* server, affecting the states of PE, PI, PR, RJ and RN. The complete absence of flow records for PI, PR and RJ during the affected extraction run resulted in a temporary underestimation of the number of stations with available flow data for climatological normal 2 (1991-2020). Data for the five affected states were re-downloaded and delivered as a separate run summary file, which does not follow the standard ``ResumoExecucao_ANA_<tipo>_normal_<N>_<date>`` naming (it carries the affected state codes instead). This correction is now applied automatically by the statistics-generation script (``stats_documentation_tables_v4.R``) through an explicit patch mechanism: the outdated rows for the five affected states are replaced with the re-downloaded ones before the national totals are aggregated. The figures presented in Table 5 above already reflect this correction. Users working directly with the raw run summary files (``ResumoExecução``) should take into account the additional run summary file for the affected states.
+   While downloading flow data for the 1991-2020 climatological normal, an instability was detected on ANA's *WebService* server, affecting the states of PE, PI, PR, RJ and RN. The complete absence of flow records for PI, PR and RJ during the affected extraction run resulted in a temporary underestimation of the number of stations with available flow data for climatological normal 2 (1991-2020). Data for the five affected states were re-downloaded and delivered as a separate run summary file, which does not follow the standard ``ResumoExecucao_ANA_<tipo>_normal_<N>_<date>`` naming (it carries the affected state codes instead). This correction is now applied automatically through an explicit patch mechanism: the outdated rows for the five affected states are replaced with the re-downloaded ones before the national totals are aggregated. The figures presented in Table 5 above already reflect this correction. Users working directly with the raw run summary files (``ResumoExecução``) should take into account the additional run summary file for the affected states.
 
 
 Quality and Consistency of the Extracted Dataset
@@ -534,7 +534,7 @@ Comparative Analysis: All Agencies versus ANA-Only Stations
 Tables 5, 6 and 7 above report station coverage, monthly series consistency and daily status distribution for the full multi-agency network. Figures 1 to 3 disaggregate the same three metrics between all responsible agencies combined ("All agencies") and the subset of stations for which ANA itself is the responsible agency ("ANA only"), isolating the extent to which ANA's own monitoring network performs differently from the network as a whole.
 
 .. figure:: _static/images/ana_img/fig1_station_coverage.png
-   :width: 700
+   :width: 800
    :alt: Eligible stations with at least one valid monthly record, all agencies vs. ANA only
 
    **Figure 1** — Percentage of eligible stations with at least one valid monthly record, by data type and climatological normal, comparing all responsible agencies combined against ANA-only stations.
@@ -542,7 +542,7 @@ Tables 5, 6 and 7 above report station coverage, monthly series consistency and 
 Restricting coverage to ANA-responsible stations yields substantially higher percentages than the all-agencies figures reported in Table 5, across every data type and climatological normal. For precipitation, ANA-only coverage reaches 90.0%, 70.6% and 60.5% for the 1961-1990, 1991-2020 and 2021-2024 normals respectively, against 77.1%, 43.8% and 22.0% for all agencies combined. The same pattern holds for Stage (84.6%/60.7%/43.8% ANA-only vs. 63.9%/30.8%/16.0% all agencies) and Discharge (67.8%/51.0%/37.0% ANA-only vs. 39.1%/20.6%/10.9% all agencies). The gap between the two scopes widens toward the most recent normal, consistent with ANA's own network being comparatively less affected by the update latency discussed in the Overview above.
 
 .. figure:: _static/images/ana_img/fig2_monthly_consistency.png
-   :width: 700
+   :width: 800
    :alt: Monthly series at Consistency Level 2, all agencies vs. ANA only
 
    **Figure 2** — Percentage of monthly series with data reaching Consistency Level 2 (Consistido), by data type and climatological normal, comparing all responsible agencies combined against ANA-only stations.
